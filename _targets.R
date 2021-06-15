@@ -82,9 +82,12 @@ list(
 	),
 
 	# Check step distributions
+	#  iteration = 'list' used for returning a list of ggplots,
+	#  instead of the usual combination with vctrs::vec_c()
 	tar_target(
 		distributions,
-		ggplot(resamples, aes(sl_, fill = factor(id))) + geom_density(alpha = 0.4),
-		pattern = map(resamples)
+		ggplot(resamples, aes(sl_)) + geom_density(alpha = 0.4),
+		pattern = map(resamples),
+		iteration = 'list'
 	)
 )
