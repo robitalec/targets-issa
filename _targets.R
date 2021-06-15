@@ -9,6 +9,7 @@ library(amt)
 library(data.table)
 library(sf)
 library(sp)
+library(ggplot2)
 
 # Functions ---------------------------------------------------------------
 source('R/functions.R')
@@ -73,12 +74,17 @@ list(
 	),
 
 	# Resample sampling rate
-
 	tar_target(
 		resamples,
-		track_resample(trakcs, rate = hours(rate), tolerance = minutes(tolerance)) %>%
+		track_resample(tracks, rate = hours(rate), tolerance = minutes(tolerance)) %>%
 			filter_min_n_burst() %>% steps_by_burst(., lonlat = T),
 		pattern = map(tracks)
-	)
+	),
 
+	# Check step distributions
+	tar_target(
+		distributions,
+		ggplot(resamples, aes(sl_, fill = factor(id))) + geom_density(alpha = 0.4),
+		pattern = map(resamples)
+	)
 )
