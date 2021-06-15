@@ -17,7 +17,7 @@ tar_option_set(format = 'qs')
 
 
 # Variables ---------------------------------------------------------------
-path <- file.path('input', 'data.csv')
+path <- file.path('input', 'test.csv')
 id <- 'id'
 datetime <- 'datetime'
 
