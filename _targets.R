@@ -16,7 +16,19 @@ source('R/functions.R')
 tar_option_set(format = 'qs')
 
 
+# Variables ---------------------------------------------------------------
+path <- file.path('input', 'data.csv')
+id <- 'id'
+datetime <- 'datetime'
 
 # Targets -----------------------------------------------------------------
 list(
+	tar_target(
+		input,
+		fread(path)
+	),
+	tar_target(
+		mkunique,
+		unique(input, by = c(id, datetime))
+	)
 )
