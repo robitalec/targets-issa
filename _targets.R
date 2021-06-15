@@ -32,6 +32,13 @@ crs <- CRS(st_crs(4326)$wkt)
 splitBy <- id
 
 
+# Resampling rate (hours)
+rate <- 5
+
+# Tolerance (minutes)
+tolerance <- 30
+
+
 # Targets -----------------------------------------------------------------
 list(
 	# Read input data
@@ -64,5 +71,14 @@ list(
 		make_track(splits, long, lat, datetime, crs = crs, id = id),
 		pattern = map(splits)
 	),
+
+	# Resample sampling rate
+
+	tar_target(
+		resamples,
+		track_resample(trakcs, rate = hours(rate), tolerance = minutes(tolerance)) %>%
+			filter_min_n_burst() %>% steps_by_burst(., lonlat = T),
+		pattern = map(tracks)
+	)
 
 )
