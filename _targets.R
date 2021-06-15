@@ -7,6 +7,8 @@ library(targets)
 
 library(amt)
 library(data.table)
+library(sf)
+library(sp)
 
 # Functions ---------------------------------------------------------------
 source('R/functions.R')
@@ -20,6 +22,10 @@ tar_option_set(format = 'qs')
 path <- file.path('input', 'test.csv')
 id <- 'id'
 datetime <- 'datetime'
+long <- 'long'
+lat <- 'lat'
+crs <- CRS(st_crs(4326)$wkt)
+
 
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
@@ -50,4 +56,13 @@ list(
 		splitsnames,
 		unique(mkunique[, .(path = path), by = splitBy])
 	),
+
+	# Make tracks. Note from here on, when we want to iterate use pattern = map(x)
+	#  where x is the upstream target name
+	tar_target(
+		tracks,
+		make_track(splits, long, lat, datetime, crs = crs, id = id),
+		pattern = map(splits)
+	),
+
 )
