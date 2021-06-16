@@ -58,7 +58,7 @@ list(
 	# remove incomplete observations
 	tar_target(
 		mkuniqueobs,
-		mkunique[complete.cases(long,lat, datetime)]
+		mkunique[complete.cases(x,y, datetime)]
 	),
 
 	# Set up split -- these are our iteration units
@@ -95,7 +95,7 @@ list(
 	#  where x is the upstream target name
 	tar_target(
 		tracks,
-		make_track(splits, long, lat, datetime, crs = crs, id = id),
+		make_track(splits, x, y, datetime, crs = crs, id = id),
 		pattern = map(splits)
 	),
 
