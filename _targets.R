@@ -46,7 +46,7 @@ list(
 	# Read input data
 	tar_target(
 		input,
-		data("amt_fisher", package = 'amt')
+		data.table(data("amt_fisher", package = 'amt'))
 	),
 
 	# Remove duplicated id*datetime rows
