@@ -87,8 +87,7 @@ list(
 	# Resample sampling rate
 	tar_target(
 		resamples,
-		track_resample(tracks, rate = rate, tolerance = tolerance) %>%
-			filter_min_n_burst() %>% steps_by_burst(., lonlat = TRUE),
+		resample_tracks(tracks, rate = rate, tolerance = tolerance),
 		pattern = map(tracks)
 	),
 
