@@ -1,5 +1,8 @@
 # === Targets workflow: iSSA with amt -------------------------------------
 # Alec L. Robitaille
+# === Targets workflow: iSSA with amt -------------------------------------
+# Alec L. Robitaille
+# Julie W. Turner
 
 
 # Packages ----------------------------------------------------------------
@@ -16,11 +19,14 @@ source('R/functions.R')
 
 
 # Options -----------------------------------------------------------------
-tar_option_set(format = 'qs')
+tar_option_set(format = 'qs',
+							 error = 'workspace')
 
 
 # Variables ---------------------------------------------------------------
-path <- file.path('input', 'test.csv')
+path <- file.path('data', 'derived-data', 'prepped-data', 'SKprepDat.RDS')
+land <- file.path('data', 'raw-data', 'CanLCC.tif')
+landclass <- file.path('data', 'raw-data', 'rcl.csv')
 id <- 'id'
 datetime <- 'datetime'
 long <- 'long'
@@ -45,7 +51,7 @@ list(
 	# Read input data
 	tar_target(
 		input,
-		fread(path)
+		readRDS(path)
 	),
 
 	# Remove duplicated id*datetime rows
@@ -54,16 +60,41 @@ list(
 		unique(input, by = c(id, datetime))
 	),
 
+	# remove incomplete observations
+	tar_target(
+		mkuniqueobs,
+		mkunique[complete.cases(long,lat, datetime)]
+	),
+
 	# Set up split -- these are our iteration units
 	tar_target(
 		splits,
-		mkunique[, tar_group := .GRP, by = splitBy],
+		mkuniqueobs[, tar_group := .GRP, by = splitBy],
 		iteration = 'group'
 	),
+
 	tar_target(
 		splitsnames,
 		unique(mkunique[, .(path = path), by = splitBy])
 	),
+
+	# load land raster
+	tar_target(
+		inputland,
+		raster(land, resolution = c(30, 30))
+	),
+
+	# Read land classification data
+	tar_target(
+		lcvalues,
+		fread(landclass)
+	),
+
+	# # reclassify the land
+	# tar_target(
+	#   lcc,
+	#   merge(inputland[, value := extract(lc, xy)], lcvalues, by = value)
+	# ),
 
 	# Make tracks. Note from here on, when we want to iterate use pattern = map(x)
 	#  where x is the upstream target name
@@ -89,5 +120,15 @@ list(
 		ggplot(resamples, aes(sl_)) + geom_density(alpha = 0.4),
 		pattern = map(resamples),
 		iteration = 'list'
+	),
+
+	# create random steps and extract covariates
+	tar_target(
+		randsteps,
+		amt::random_steps(n=10) %>%
+			amt::extract_covariates(inputland, where = "end") %>%
+			amt::time_of_day(where = 'start'),
+		pattern = map(resamples)
 	)
+
 )
