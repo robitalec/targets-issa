@@ -46,6 +46,8 @@ data("amt_fisher", package = 'amt')
 # Land cover
 data("amt_fisher_covar", package = 'amt')
 lc <- amt_fisher_covar$landuse
+legend <- fread('input/legend.csv')
+
 
 # Number of random steps
 nrandom <- 10
