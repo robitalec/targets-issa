@@ -106,10 +106,22 @@ list(
 	# Create random steps and extract covariates
 	tar_target(
 		randsteps,
-		random_steps(resamples, n = nrandom) %>%
-			extract_covariates(lc, where = "end") %>%
-			time_of_day(where = 'start'),
+		make_random_tracks(resamples, lc),
 		pattern = map(resamples)
+	),
+
+	# TA distribution parameters
+	tar_target(
+		tadist,
+		ta_distr_params(randsteps),
+		pattern = map(randsteps)
+	),
+
+	# SL distribution parameters
+	tar_target(
+		sldist,
+		sl_distr_params(randsteps),
+		pattern = map(randsteps)
 	),
 
 	# Merge covariate legend
