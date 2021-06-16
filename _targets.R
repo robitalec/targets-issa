@@ -1,8 +1,5 @@
 # === Targets workflow: iSSA with amt -------------------------------------
-# Alec L. Robitaille
-# === Targets workflow: iSSA with amt -------------------------------------
-# Alec L. Robitaille
-# Julie W. Turner
+# Alec L. Robitaille, Julie W. Turner
 
 
 
@@ -25,14 +22,11 @@ tar_option_set(format = 'qs',
 
 
 # Variables ---------------------------------------------------------------
-path <- file.path('data', 'derived-data', 'prepped-data', 'SKprepDat.RDS')
-land <- file.path('data', 'raw-data', 'CanLCC.tif')
-landclass <- file.path('data', 'raw-data', 'rcl.csv')
 id <- 'id'
-datetime <- 'datetime'
-long <- 'long'
-lat <- 'lat'
-crs <- CRS(st_crs(4326)$wkt)
+datetime <- 't_'
+x <- 'x_'
+y <- 'y_'
+crs <- CRS(st_crs(31467)$wkt)
 
 
 # Split by: within which column or set of columns (eg. c(id, yr))
@@ -52,7 +46,7 @@ list(
 	# Read input data
 	tar_target(
 		input,
-		readRDS(path)
+		data("amt_fisher", package = 'amt')
 	),
 
 	# Remove duplicated id*datetime rows
