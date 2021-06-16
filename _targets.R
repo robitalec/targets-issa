@@ -40,8 +40,12 @@ rate <- minutes(30)
 # Tolerance
 tolerance <- minutes(5)
 
+# Fisher
+data("amt_fisher", package = 'amt')
+
 # Land cover
-data("sh_forest", package = 'amt')
+data("amt_fisher_covar", package = 'amt')
+lc <- amt_fisher_covar$landuse
 
 # Number of random steps
 nrandom <- 10
@@ -51,50 +55,26 @@ list(
 	# Read input data
 	tar_target(
 		input,
-		data.table(data("amt_fisher", package = 'amt'))
+		data.table(amt_fisher)
 	),
 
-	# Remove duplicated id*datetime rows
+	# Remove duplicated and incomplete observations
 	tar_target(
 		mkunique,
-		unique(input, by = c(id, datetime))
-	),
-
-	# remove incomplete observations
-	tar_target(
-		mkuniqueobs,
-		mkunique[complete.cases(x,y, datetime)]
+		make_unique_complete(input, id, datetime, x, y)
 	),
 
 	# Set up split -- these are our iteration units
 	tar_target(
 		splits,
-		mkuniqueobs[, tar_group := .GRP, by = splitBy],
+		mkunique[, tar_group := .GRP, by = splitBy],
 		iteration = 'group'
 	),
 
 	tar_target(
 		splitsnames,
-		unique(mkunique[, .(path = path), by = splitBy])
+		unique(mkunique, by = splitBy)
 	),
-
-	# load land raster
-	tar_target(
-		inputland,
-		raster(land, resolution = c(30, 30))
-	),
-
-	# Read land classification data
-	tar_target(
-		lcvalues,
-		fread(landclass)
-	),
-
-	# # reclassify the land
-	# tar_target(
-	#   lcc,
-	#   merge(inputland[, value := extract(lc, xy)], lcvalues, by = value)
-	# ),
 
 	# Make tracks. Note from here on, when we want to iterate use pattern = map(x)
 	#  where x is the upstream target name
