@@ -12,15 +12,6 @@ make_unique_complete <- function(DT, id, datetime, long, lat) {
 
 
 
-# Extract land cover ------------------------------------------------------
-extract_lc <- function(DT, lc, x, y, lcvalues) {
-	merge(
-		DT[, value := raster::extract(lc, do.call(cbind, .SD)),
-			 .SDcols = c(x, y)],
-		lcvalues,
-		by = 'value',
-		all.x = TRUE)
-}
 
 # Resample with cancel check ---------------------------------------------------------
 resample_tracks <- function(tracks, rate, tolerance) {
