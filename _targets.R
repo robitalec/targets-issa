@@ -104,9 +104,9 @@ list(
 	# create random steps and extract covariates
 	tar_target(
 		randsteps,
-		amt::random_steps(n=10) %>%
-			amt::extract_covariates(inputland, where = "end") %>%
-			amt::time_of_day(where = 'start'),
+		random_steps(resamples, n = nrandom) %>%
+			extract_covariates(lc, where = "end") %>%
+			time_of_day(where = 'start'),
 		pattern = map(resamples)
 	)
 
