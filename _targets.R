@@ -103,13 +103,25 @@ list(
 		iteration = 'list'
 	),
 
-	# create random steps and extract covariates
+	# Create random steps and extract covariates
 	tar_target(
 		randsteps,
 		random_steps(resamples, n = nrandom) %>%
 			extract_covariates(lc, where = "end") %>%
 			time_of_day(where = 'start'),
 		pattern = map(resamples)
+	),
+
+	# Merge covariate legend
+	tar_target(
+		mergelc,
+		merge(
+			randsteps,
+			legend,
+			by.x = 'landuse',
+			by.y = 'Value'
+		),
+		pattern = map(randsteps)
 	)
 
 )
