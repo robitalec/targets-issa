@@ -20,7 +20,7 @@ tar_option_set(format = 'qs')
 
 
 # Variables ---------------------------------------------------------------
-path <- file.path('input', 'test.csv')
+path <- file.path('input', 'SKprepDat.RDS')
 id <- 'id'
 datetime <- 'datetime'
 long <- 'long'
@@ -45,7 +45,7 @@ list(
 	# Read input data
 	tar_target(
 		input,
-		fread(path)
+		readRDS(path)
 	),
 
 	# Remove duplicated id*datetime rows
