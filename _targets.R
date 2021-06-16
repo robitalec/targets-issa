@@ -40,6 +40,11 @@ rate <- minutes(30)
 # Tolerance
 tolerance <- minutes(5)
 
+# Land cover
+data("sh_forest", package = 'amt')
+
+# Number of random steps
+nrandom <- 10
 
 # Targets -----------------------------------------------------------------
 list(
