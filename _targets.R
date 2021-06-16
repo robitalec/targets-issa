@@ -82,7 +82,7 @@ list(
 	#  where x is the upstream target name
 	tar_target(
 		tracks,
-		make_track(splits, x, y, datetime, crs = crs, id = id),
+		make_track(splits, x_, y_, t_, crs = crs, id = id),
 		pattern = map(splits)
 	),
 
