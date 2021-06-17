@@ -131,7 +131,8 @@ list(
 			randsteps,
 			legend,
 			by.x = 'landuse',
-			by.y = 'Value'
+			by.y = 'Value',
+			all.x = TRUE
 		),
 		pattern = map(randsteps)
 	)
