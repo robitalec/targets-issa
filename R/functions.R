@@ -19,7 +19,7 @@ resample_tracks <- function(tracks, rate, tolerance) {
 		filter_min_n_burst()
 
 	# Cancel if there are not at least three rows after resample
-	tar_cancel(nrow(t) < 3)
+	if (nrow(t) < 3) return()
 
 	t %>% steps_by_burst(.)
 }
@@ -27,10 +27,12 @@ resample_tracks <- function(tracks, rate, tolerance) {
 
 # Make random tracks ------------------------------------------------------
 make_random_tracks <- function(DT, lc) {
-	tar_cancel(nrow(DT) == 0)
-	random_steps(DT, n = 10) %>%
-		extract_covariates(lc, where = "end") %>%
-		time_of_day(where = 'start')
+	if (is.null(DT)) return()
+	if(nrow(DT) == 0) return()
+	amt::random_steps(DT, n = 10) %>%
+		amt::extract_covariates(lc, where = "end") %>%
+		amt::time_of_day(where = 'start')
 }
+
 
 
