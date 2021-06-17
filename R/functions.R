@@ -28,11 +28,15 @@ resample_tracks <- function(tracks, rate, tolerance) {
 # Make random tracks ------------------------------------------------------
 make_random_tracks <- function(DT, lc) {
 	if (is.null(DT)) return()
-	if(nrow(DT) == 0) return()
+	if (nrow(DT) == 0) return()
 	amt::random_steps(DT, n = 10) %>%
 		amt::extract_covariates(lc, where = "end") %>%
 		amt::time_of_day(where = 'start')
 }
 
 
-
+# Calculate distribution parameters ---------------------------------------
+calc_distribution_parameters <- function(steps) {
+	if (is.null(steps)) return()
+	c(amt::ta_distr_params(steps), amt::sl_distr_params(steps))
+}

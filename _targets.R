@@ -110,17 +110,10 @@ list(
 		pattern = map(resamples)
 	),
 
-	# TA distribution parameters
-	tar_target(
-		tadist,
-		ta_distr_params(randsteps),
-		pattern = map(randsteps)
-	),
-
-	# SL distribution parameters
+	# Distribution parameters
 	tar_target(
 		sldist,
-		sl_distr_params(randsteps),
+		calc_distribution_parameters(randsteps),
 		pattern = map(randsteps)
 	),
 
