@@ -45,8 +45,18 @@ calc_distribution_parameters <- function(steps) {
 
 #' Evaluate distance-to ---------------------------------------------------
 polygonize_lc_class <- function(lc, class) {
+
+	# if raster
 	lc[lc != class] <- NA
-	st_as_sf(lc)
+
+	# if stars
+	# lc[[1]][lc[[1]] != 190] <- NA
+	# st_as_sf(lc[[1]])
+
+	# union? group?
+	z <- st_as_sf(as(lc, 'SpatialPolygons'))
+	st_crs(z) <- st_crs(lc)
+	z
 }
 
 #' Evaluates locations in x by measuring the distance to the nearest feature in layer.

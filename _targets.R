@@ -44,14 +44,14 @@ tolerance <- minutes(5)
 amt_fisher <- st_read('input/amt_fisher_locs_4326.gpkg')
 
 # Land cover
-lc <- read_stars('input/amt_fisher_lc_4326.tif')
+lc <- raster('input/amt_fisher_lc_4326.tif')
 legend <- fread('input/legend.csv')
 
 # Elevation
-elev <- read_stars('input/amt_fisher_elev_4326.tif')
+elev <- raster('input/amt_fisher_elev_4326.tif')
 
 # Population density
-popdens <- read_stars('input/amt_fisher_popdens_4326.tif')
+popdens <- raster('input/amt_fisher_popdens_4326.tif')
 
 # Number of random steps
 nrandom <- 10
@@ -86,7 +86,7 @@ list(
 	#  where x is the upstream target name
 	tar_target(
 		tracks,
-		make_track(splits, x_, y_, t_, crs = CRS(crs), id = id),
+		make_track(splits, x_, y_, t_, crs = CRS(crs$wkt), id = id),
 		pattern = map(splits)
 	),
 

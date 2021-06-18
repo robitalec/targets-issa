@@ -12,22 +12,27 @@ output: github_document
 ```{r, eval = FALSE}
 library(amt)
 library(sf)
-library(stars)
+library(raster)
 
 data("amt_fisher", package = 'amt')
 data("amt_fisher_covar", package = 'amt')
 
 
 fisher <- st_as_sf(amt_fisher, coords = c('x_', 'y_'), crs = 31467, remove = FALSE)
-lc <- st_as_stars(amt_fisher_covar$landuse)
-elev <- st_as_stars(amt_fisher_covar$elevation)
-popdens <- st_as_stars(amt_fisher_covar$popden)
+lc <- amt_fisher_covar$landuse
+elev <- amt_fisher_covar$elevation
+popdens <- amt_fisher_covar$popden
 
-crs <- st_crs(4326)
+incrs <- CRS(st_crs(lc)$wkt)
+crs(lc) <- incrs
+crs(elev) <- incrs
+crs(popdens) <- incrs
 
-st_write(st_transform(fisher, crs), 'input/amt_fisher_locs_4326.gpkg')
-write_stars(st_transform_proj(lc, crs), 'input/amt_fisher_lc_4326.tif')
-write_stars(st_transform_proj(elev, crs), 'input/amt_fisher_elev_4326.tif')
-write_stars(st_transform_proj(popdens, crs), 'input/amt_fisher_popdens_4326.tif')
+outcrs <- CRS(st_crs(4326)$wkt)
+
+st_write(st_transform(fisher, 4326), 'input/amt_fisher_locs_4326.gpkg')
+writeRaster(projectRaster(lc, crs = outcrs), 'input/amt_fisher_lc_4326.tif')
+writeRaster(projectRaster(elev, crs = outcrs), 'input/amt_fisher_elev_4326.tif')
+writeRaster(projectRaster(popdens, crs = outcrs), 'input/amt_fisher_popdens_4326.tif')
 ```
 
