@@ -9,8 +9,8 @@ library(targets)
 library(amt)
 library(data.table)
 library(sf)
-library(sp)
 library(ggplot2)
+library(stars)
 
 # Functions ---------------------------------------------------------------
 source('R/functions.R')
@@ -26,7 +26,7 @@ id <- 'id'
 datetime <- 't_'
 x <- 'x_'
 y <- 'y_'
-crs <- CRS(st_crs(31467)$wkt)
+crs <- st_crs(4326)
 
 
 # Split by: within which column or set of columns (eg. c(id, yr))
@@ -41,13 +41,17 @@ rate <- minutes(30)
 tolerance <- minutes(5)
 
 # Fisher
-data("amt_fisher", package = 'amt')
+amt_fisher <- st_read('input/amt_fisher_locs_4326.gpkg')
 
 # Land cover
-data("amt_fisher_covar", package = 'amt')
-lc <- amt_fisher_covar$landuse
+lc <- read_stars('input/amt_fisher_lc_4326.tif')
 legend <- fread('input/legend.csv')
 
+# Elevation
+elev <- read_stars('input/amt_fisher_elev_4326.tif')
+
+# Population density
+popdens <- read_stars('input/amt_fisher_popdens_4326.tif')
 
 # Number of random steps
 nrandom <- 10
@@ -82,7 +86,7 @@ list(
 	#  where x is the upstream target name
 	tar_target(
 		tracks,
-		make_track(splits, x_, y_, t_, crs = crs, id = id),
+		make_track(splits, x_, y_, t_, crs = CRS(crs), id = id),
 		pattern = map(splits)
 	),
 
