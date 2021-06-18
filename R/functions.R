@@ -26,7 +26,7 @@ resample_tracks <- function(tracks, rate, tolerance) {
 
 
 # Make random tracks ------------------------------------------------------
-make_random_tracks <- function(DT, lc) {
+make_random_steps <- function(DT, lc) {
 	if (is.null(DT)) return()
 	if (nrow(DT) == 0) return()
 	amt::random_steps(DT, n = 10) %>%

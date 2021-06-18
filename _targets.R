@@ -106,7 +106,7 @@ list(
 	# Create random steps and extract covariates
 	tar_target(
 		randsteps,
-		make_random_tracks(resamples, lc),
+		make_random_steps(resamples, lc),
 		pattern = map(resamples)
 	),
 
