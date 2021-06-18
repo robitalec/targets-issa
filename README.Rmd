@@ -1,9 +1,15 @@
+---
+output: github_document
+---
 
 # Targets Amt Issa
 
+
+
+
 ## Data setup
 
-``` r
+```{r, eval = FALSE}
 library(amt)
 library(sf)
 library(stars)
@@ -24,3 +30,4 @@ write_stars(st_transform_proj(lc, crs), 'input/amt_fisher_lc_4326.tif')
 write_stars(st_transform_proj(elev, crs), 'input/amt_fisher_elev_4326.tif')
 write_stars(st_transform_proj(popdens, crs), 'input/amt_fisher_popdens_4326.tif')
 ```
+
