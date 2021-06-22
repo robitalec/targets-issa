@@ -10,7 +10,7 @@ library(amt)
 library(data.table)
 library(sf)
 library(ggplot2)
-library(stars)
+library(terra)
 
 # Functions ---------------------------------------------------------------
 source('R/functions.R')
@@ -21,12 +21,27 @@ tar_option_set(format = 'qs',
 							 error = 'workspace')
 
 
+# Data --------------------------------------------------------------------
+# Fisher
+amt_fisher <- readRDS('input/trk.rds')
+
+
+# Land cover
+lc <- rast('input/lc.tif')
+legend <- fread('input/legend.csv')
+
+# Elevation
+env <- rast('input/elev.tif')
+
+# Population density
+popdens <-  rast('input/popdens.tif')
+
 # Variables ---------------------------------------------------------------
 id <- 'id'
 datetime <- 't_'
 x <- 'x_'
 y <- 'y_'
-crs <- st_crs(4326)
+crs <- st_crs(32618)
 
 
 # Split by: within which column or set of columns (eg. c(id, yr))
