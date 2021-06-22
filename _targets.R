@@ -83,12 +83,25 @@ list(
 		unique(mkunique, by = splitBy)
 	),
 
+	# Sample distance to water
+	tar_target(
+		water,
+		polygonize_lc_class(lc, class = 190)
+	),
+
+	tar_target(
+		distto,
+		splits[, distto := eval_dist(.SD, water, coords = c(x, y), crs = crs)],
+		pattern = map(splits)
+	),
+
+
 	# Make tracks. Note from here on, when we want to iterate use pattern = map(x)
 	#  where x is the upstream target name
 	tar_target(
 		tracks,
-		make_track(splits, x_, y_, t_, crs = CRS(crs$wkt), id = id),
-		pattern = map(splits)
+		make_track(distto, x_, y_, t_, all_cols = TRUE, crs = spcrs),
+		pattern = map(distto)
 	),
 
 	# Resample sampling rate
