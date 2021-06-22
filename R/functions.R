@@ -47,12 +47,9 @@ calc_distribution_parameters <- function(steps) {
 
 #' Evaluate distance-to ---------------------------------------------------
 polygonize_lc_class <- function(lc, class) {
-
-	pol <- as.polygons(lc == class)
-
-	# union? group?
-	z <- st_as_sf(pol)
-	z
+	lc[lc != class] <- NA
+	pol <- as.polygons(lc)
+	st_as_sf(pol)
 }
 
 #' Evaluates locations in x by measuring the distance to the nearest feature in layer.
@@ -113,3 +110,4 @@ check_coords <- function(x, coords) {
 		stop('coords provided must be numeric')
 	}
 }
+
