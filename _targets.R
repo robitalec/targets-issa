@@ -10,7 +10,7 @@ library(amt)
 library(data.table)
 library(sf)
 library(ggplot2)
-library(terra)
+library(raster)
 
 # Functions ---------------------------------------------------------------
 source('R/functions.R')
@@ -23,18 +23,17 @@ tar_option_set(format = 'qs',
 
 # Data --------------------------------------------------------------------
 # Fisher
-amt_fisher <- readRDS('input/trk.rds')
-
+fish_path <- 'input/fisher.csv'
 
 # Land cover
-lc <- rast('input/lc.tif')
+lc <- raster('input/lc.tif')
 legend <- fread('input/legend.csv')
 
 # Elevation
-env <- rast('input/elev.tif')
+elev <- raster('input/elev.tif')
 
 # Population density
-popdens <-  rast('input/popdens.tif')
+popdens <-  raster('input/popdens.tif')
 
 # Variables ---------------------------------------------------------------
 id <- 'id'
