@@ -21,7 +21,7 @@ resample_tracks <- function(tracks, rate, tolerance) {
 	# Cancel if there are not at least three rows after resample
 	if (nrow(t) < 3) return()
 
-	t %>% steps_by_burst(.)
+	t %>% steps_by_burst(., keep_cols = 'start')
 }
 
 

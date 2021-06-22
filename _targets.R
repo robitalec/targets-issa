@@ -143,7 +143,7 @@ list(
 		merge(
 			randsteps,
 			legend,
-			by.x = 'landuse',
+			by.x = 'lc',
 			by.y = 'Value',
 			all.x = TRUE
 		),
