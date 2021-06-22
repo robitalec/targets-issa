@@ -48,16 +48,10 @@ calc_distribution_parameters <- function(steps) {
 #' Evaluate distance-to ---------------------------------------------------
 polygonize_lc_class <- function(lc, class) {
 
-	# if raster
-	lc[lc != class] <- NA
-
-	# if stars
-	# lc[[1]][lc[[1]] != 190] <- NA
-	# st_as_sf(lc[[1]])
+	pol <- as.polygons(lc == class)
 
 	# union? group?
-	z <- st_as_sf(as(lc, 'SpatialPolygons'))
-	st_crs(z) <- st_crs(lc)
+	z <- st_as_sf(pol)
 	z
 }
 
