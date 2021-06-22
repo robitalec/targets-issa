@@ -121,28 +121,18 @@ list(
 		iteration = 'list'
 	),
 
-	tar_target(
-		urban,
-		polygonize_lc_class(lc, class = 190)
-	),
 
-	# Sample distance to urban
-	tar_target(
-		distto,
-		eval_dist(tracks, urban, coords = c(x, y), crs = crs),
-		pattern = map(tracks)
-	),
 
 	# Create random steps and extract covariates
 	tar_target(
 		randsteps,
-		make_random_steps(resamples, lc),
+		make_random_steps(resamples, lc, elev, popdens),
 		pattern = map(resamples)
 	),
 
 	# Distribution parameters
 	tar_target(
-		sldist,
+		distparams,
 		calc_distribution_parameters(randsteps),
 		pattern = map(randsteps)
 	),
