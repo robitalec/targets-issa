@@ -55,19 +55,6 @@ rate <- minutes(30)
 # Tolerance
 tolerance <- minutes(5)
 
-# Fisher
-amt_fisher <- st_read('input/amt_fisher_locs_4326.gpkg')
-
-# Land cover
-lc <- raster('input/amt_fisher_lc_4326.tif')
-legend <- fread('input/legend.csv')
-
-# Elevation
-elev <- raster('input/amt_fisher_elev_4326.tif')
-
-# Population density
-popdens <- raster('input/amt_fisher_popdens_4326.tif')
-
 # Number of random steps
 nrandom <- 10
 
