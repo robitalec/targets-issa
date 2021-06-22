@@ -41,7 +41,7 @@ datetime <- 't_'
 x <- 'x_'
 y <- 'y_'
 crs <- st_crs(32618)
-
+spcrs <- CRS(crs$wkt)
 
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
@@ -62,7 +62,7 @@ list(
 	# Read input data
 	tar_target(
 		input,
-		data.table(amt_fisher)
+		fread(fish_path)[, t_ := as.POSIXct(t_)]
 	),
 
 	# Remove duplicated and incomplete observations
