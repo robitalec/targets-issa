@@ -10,7 +10,19 @@ targets::tar_visnetwork(TRUE)
 ```
 
 
+## R setup
+
+```{r}
+options(repos = c(
+    ropensci = 'https://ropensci.r-universe.dev',
+    tidyverse = 'https://tidyverse.r-universe.dev',
+    rspatial = 'https://rspatial.r-universe.dev',
+    CRAN = 'https://cloud.r-project.org'))
+
+install.packages(c('data.table', 'amt', 'sf', 'ggplot2', 'raster', 'qs', 'terra', ))
+```
+
 ## Data setup
 
-See `scripts/prep-fisher.R`.
+Run through `scripts/prep-fisher.R`.
 
