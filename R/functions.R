@@ -48,7 +48,7 @@ calc_distribution_parameters <- function(steps) {
 #' Evaluate distance-to ---------------------------------------------------
 polygonize_lc_class <- function(lc, class) {
 	lc[lc != class] <- NA
-	pol <- as.polygons(lc)
+	pol <- rasterToPolygons(lc, dissolve = TRUE)
 	st_as_sf(pol)
 }
 
