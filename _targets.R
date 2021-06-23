@@ -12,6 +12,8 @@ library(sf)
 library(ggplot2)
 library(raster)
 
+library(parsedate)
+
 # Functions ---------------------------------------------------------------
 source('R/functions.R')
 
@@ -42,6 +44,7 @@ x <- 'x_'
 y <- 'y_'
 crs <- st_crs(32618)
 spcrs <- CRS(crs$wkt)
+tz <- grep('Montreal', OlsonNames(), value = TRUE)
 
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
@@ -62,7 +65,7 @@ list(
 	# Read input data
 	tar_target(
 		input,
-		fread(fish_path)[, t_ := as.POSIXct(t_)]
+		fread(fish_path)[, t_ := parse_date(t_, default_tz = tz)]
 	),
 
 	# Remove duplicated and incomplete observations
