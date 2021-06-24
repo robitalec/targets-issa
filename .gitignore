@@ -2,6 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-input/*
 _targets/
-!input/legend.csv
+raw-data/
