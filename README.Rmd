@@ -27,7 +27,19 @@ install.packages(c('data.table', 'amt', 'sf', 'ggplot2', 'raster', 'qs', 'terra'
 Run through `scripts/prep-fisher.R`.
 
 
-## Run
+## Run the workflow
+
+```{r}
+library(targets)
+tar_make()
+```
+
+
+## Explore results
+
+See `scripts/explore-results.R` for a full example. 
+
+Below is an example of how to interact with `targets` outputs - but don't run them in this README. Copy over to a separate R script or check out the explore results script. 
 
 ```{r, eval = FALSE}
 library(targets)
