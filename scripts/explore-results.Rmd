@@ -9,6 +9,7 @@ always_allow_html: true
 targets::tar_visnetwork(TRUE)
 ```
 
+iSSAs are created on an individual basis. Previous vignettes have looped through individuals, used `lapply()`, or have been mapped in a piping framework. When using these, we've frequently run into a single individual breaking the whole process, so they must be removed. Then we restart. This has led us to try a new, more efficient (?) framework with `targets`. The `targets` package creates a workflow that sets up parallel computing, breaking up analyses a "target". In the case of iSSA, this would be the individual. Thus, we can calculate things like tracks, random steps, and covariate extractions by individual in a way the reduces repeated computation burdens. This framework allows us to integrate other variables we may want to group by for analysis such as year or season in a simple way without having to redo a lot of work; you just add another target
 
 ## R setup
 
@@ -25,14 +26,6 @@ install.packages(c('data.table', 'amt', 'sf', 'ggplot2', 'raster', 'qs', 'terra'
 ## Data setup
 
 Run through `scripts/prep-fisher.R`.
-
-
-## Run the workflow
-
-```{r}
-library(targets)
-tar_make()
-```
 
 
 ## Explore results
