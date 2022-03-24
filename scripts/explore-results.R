@@ -1,5 +1,6 @@
 library(targets)
 library(glmmTMB)
+library(data.table)
 
 ## Run the full workflow
 tar_make()
@@ -19,6 +20,7 @@ tar_read(distributions)
 tar_load(stepID)
 ## making lc a factor
 stepID[, lc := as.factor(lc)]
+stepID[, indiv_step_id := as.factor(indiv_step_id)]
 
 
 mod.1 <- glmmTMB(case_ ~ I(log(sl_)) + I(log(sl_)):tod_start_ + distto + distto:I(log(sl_)) +
