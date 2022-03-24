@@ -16,3 +16,9 @@ tar_read(distributions)
 
 # *Load* all random steps and extracted landscape value
 tar_load(mergelc)
+
+
+glmmtmb(case_ ~ I(log(sl_)) + I(log(sl_)):tod_start + distto + distto:I(log(sl_)) +
+					(1|indiv_step_id) + ## NEED TO MAKE THIS
+					(0+ I(log(sl_))|id) +
+					(0+))
