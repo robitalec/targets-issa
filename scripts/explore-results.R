@@ -17,21 +17,23 @@ tar_read(distributions)
 
 # *Load* all random steps and extracted landscape value
 tar_load(stepID)
+## making lc a factor
+stepID[, lc := as.factor(lc)]
 
 
 mod.1 <- glmmTMB(case_ ~ I(log(sl_)) + I(log(sl_)):tod_start_ + distto + distto:I(log(sl_)) +
 					(1|indiv_step_id) +
 					(0+ I(log(sl_))|id) +
 					(0+ I(log(sl_)):tod_start_|id) +
-					(0+ distto) +
-					(0+ distto:I(log(sl_))),
+					(0+ distto|id) +
+					(0+ distto:I(log(sl_))|id),
 					 data = stepID, family= poisson(),
-				map= list(theta = factor(c(NA,1:4))),
-				start = list(theta =c(log(1000), seq(0,0, length.out = 4)))
+				map= list(theta = factor(c(NA,1:6))),
+				start = list(theta =c(log(1000), seq(0,0, length.out = 6)))
 					)
 summary(mod.1)
 
-# convergence problem --- why?
+# can't estimate error --- why?
 stepID[case_ == T, range(distto)]
 stepID[case_ == F, quantile(distto)]
 
@@ -44,22 +46,23 @@ mod.2 <- glmmTMB(case_ ~ I(log(sl_)) + I(log(sl_)):tod_start_ + distto +
 							 	(1|indiv_step_id) +
 							 	(0+ I(log(sl_))|id) +
 							 	(0+ I(log(sl_)):tod_start_|id) +
-							 	(0+ distto) ,
+							 	(0+ distto|id) ,
 							 data = stepID, family= poisson(),
-							 map= list(theta = factor(c(NA,1:4))),
-							 start = list(theta =c(log(1000), seq(0,0, length.out = 4)))
+							 map= list(theta = factor(c(NA,1:5))),
+							 start = list(theta =c(log(1000), seq(0,0, length.out = 5)))
 )
 summary(mod.2)
 
 ### popden model
-mod.a <- glmmTMB(case_ ~ I(log(sl_)) + I(log(sl_)):tod_start_ + popdens +
+mod.a <- glmmTMB(case_ ~ I(log(sl_)) + I(log(sl_)):tod_start_ + elev + popdens +
 								 	(1|indiv_step_id) +
 								 	(0+ I(log(sl_))|id) +
 								 	(0+ I(log(sl_)):tod_start_|id) +
-								 	(0+ popdens) ,
+								 	(0+ elev|id) +
+								 	(0+ popdens|id) ,
 								 data = stepID, family= poisson(),
-								 map= list(theta = factor(c(NA,1:4))),
-								 start = list(theta =c(log(1000), seq(0,0, length.out = 4)))
+								 map= list(theta = factor(c(NA,1:6))),
+								 start = list(theta =c(log(1000), seq(0,0, length.out = 6)))
 )
 summary(mod.a)
 
