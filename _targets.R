@@ -151,6 +151,12 @@ list(
 			all.x = TRUE
 		),
 		pattern = map(randsteps)
+	),
+
+	# Make unique step ID per individual
+	tar_target(
+		stepID,
+		make_step_id(mergelc)
 	)
 
 )

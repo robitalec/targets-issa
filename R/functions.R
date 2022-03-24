@@ -1,6 +1,6 @@
 # === Functions -----------------------------------------------------------
 # Alec L. Robitaille
-
+# Julie W. Turner
 
 
 
@@ -122,3 +122,10 @@ check_coords <- function(x, coords) {
 	}
 }
 
+# Make unique step ID across individuals -----------------------------------
+make_step_id <- function(DT) {
+	if (is.null(DT)) return()
+	if (nrow(DT) == 0) return()
+
+	DT[,indiv_step_id := paste(id, step_id_, sep = '_')]
+}
