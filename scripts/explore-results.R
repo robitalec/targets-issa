@@ -24,7 +24,7 @@ mod.1 <- glmmTMB(case_ ~ I(log(sl_)) + I(log(sl_)):tod_start_ + distto + distto:
 					(0+ I(log(sl_))|id) +
 					(0+ I(log(sl_)):tod_start_|id) +
 					(0+ distto) +
-					(0+ distto + distto:I(log(sl_))),
+					(0+ distto:I(log(sl_))),
 					 data = stepID, family= poisson(),
 				map= list(theta = factor(c(NA,1:4))),
 				start = list(theta =c(log(1000), seq(0,0, length.out = 4)))
@@ -50,4 +50,16 @@ mod.2 <- glmmTMB(case_ ~ I(log(sl_)) + I(log(sl_)):tod_start_ + distto +
 							 start = list(theta =c(log(1000), seq(0,0, length.out = 4)))
 )
 summary(mod.2)
+
+### popden model
+mod.a <- glmmTMB(case_ ~ I(log(sl_)) + I(log(sl_)):tod_start_ + popdens +
+								 	(1|indiv_step_id) +
+								 	(0+ I(log(sl_))|id) +
+								 	(0+ I(log(sl_)):tod_start_|id) +
+								 	(0+ popdens) ,
+								 data = stepID, family= poisson(),
+								 map= list(theta = factor(c(NA,1:4))),
+								 start = list(theta =c(log(1000), seq(0,0, length.out = 4)))
+)
+summary(mod.a)
 
