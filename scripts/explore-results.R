@@ -22,11 +22,16 @@ tar_load(stepID)
 
 ## making lc a factor
 summary(as.factor(stepID$description))
-stepID[,forest := ifelse(description=='forest',1,0)]
+
 stepID[description == 'forest', lc_adj := 'forest']
 stepID[description %in% c('cultivated', 'developed'), lc_adj := 'disturbed']
 stepID[description %in% c('barren', 'herbaceous', 'shrubland', 'water'), lc_adj := 'open']
 stepID[description == 'wetlands', lc_adj := 'wetlands']
+
+stepID[,forest := ifelse(description=='forest',1,0)]
+stepID[,wetlands := ifelse(description=='wetlands',1,0)]
+stepID[,disturbed := ifelse(lc_adj=='disturbed',1,0)]
+
 summary(as.factor(stepID$lc_adj))
 
 stepID[, lc := as.factor(lc)]
@@ -76,21 +81,23 @@ summary(mod.2)
 
 ### forest model
 mod.a <- glmmTMB(case_ ~ -1 + I(log(sl_)) +
-								 	#I(log(sl_)):tod_start_ +
 								 	I(log(sl_)):forest +
 								 	forest +
+								 	I(log(sl_)):disturbed +
+								 	disturbed +
 								 	I(log(distto_water+1)) +
 								 	I(log(distto_water+1)):I(log(sl_)) +
 								 	(1|indiv_step_id) +
 								 	(0+ I(log(sl_))|id) +
-								 	#(0+ I(log(sl_)):tod_start_|id) +
+								 	(0+ I(log(sl_)):disturbed|id) +
 								 	(0+ I(log(sl_)):forest|id) +
 								 	(0+ forest|id) +
+								 	(0+ disturbed|id) +
 								 	(0+ I(log(distto_water+1))|id) +
 								 	(0+ I(log(distto_water+1)):I(log(sl_))|id),
 								 data = stepID, family= poisson(),
-								 map= list(theta = factor(c(NA,1:5))),
-								 start = list(theta =c(log(1000), seq(0,0, length.out = 5)))
+								 map= list(theta = factor(c(NA,1:7))),
+								 start = list(theta =c(log(1000), seq(0,0, length.out = 7)))
 )
 summary(mod.a)
 
