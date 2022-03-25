@@ -28,7 +28,8 @@ attr(amt_fisher_covar$landuse, 'crs')
 attr(amt_fisher_covar$elev, 'crs')
 attr(amt_fisher_covar$popden, 'crs')
 
-lc <- rast(amt_fisher_covar$landuse)
+#lc <- rast(amt_fisher_covar$landuse)
+lc <- rast(file.path('input', 'landuse_study_area.tif'))
 elev <- rast(amt_fisher_covar$elev)
 popden <- rast(amt_fisher_covar$popden)
 
