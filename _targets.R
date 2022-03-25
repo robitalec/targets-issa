@@ -29,7 +29,7 @@ fish_path <- 'input/fisher.csv'
 
 # Land cover
 lc <- raster('input/lc.tif')
-legend <- fread('input/legend.csv')
+legend <- fread('input/fisher_legend.csv')
 
 # Elevation
 elev <- raster('input/elev.tif')
@@ -89,12 +89,12 @@ list(
 	# Sample distance to water
 	tar_target(
 		water,
-		polygonize_lc_class(lc, class = 190)
+		polygonize_lc_class(lc, class = 11)
 	),
 
 	tar_target(
 		distto,
-		splits[, distto := eval_dist(.SD, water, coords = c(x, y), crs = crs)],
+		splits[, distto_water := eval_dist(.SD, water, coords = c(x, y), crs = crs)],
 		pattern = map(splits)
 	),
 
