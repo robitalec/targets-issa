@@ -1,6 +1,8 @@
 library(targets)
 library(glmmTMB)
 library(data.table)
+library(ggplot2)
+library(ggthemes)
 
 ## Run the full workflow
 tar_make()
