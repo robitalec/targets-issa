@@ -194,3 +194,32 @@ forest.rss <- ggplot(data=logRSS.forest, aes(x, rss)) +
 	scale_fill_colorblind()
 
 forest.rss
+
+
+### h1 for distto_water ----
+h1.indiv.water <-p.h1.indiv.dist(ids = ids, DT = stepID, mod = mod.b)
+
+# forest
+h1.indiv.water <- data.table(rbindlist(h1.indiv.water), x = seq(from = 0, to = 1500, length.out = 100))
+
+logRSS.water <- merge(h1.indiv.water, h2.indiv, by = c('id'), all.x = T)
+logRSS.water[,'rss'] <- logRSS.water$h1 - logRSS.water$h2
+
+water.rss <- ggplot(data=logRSS.water, aes(x, rss)) +
+	geom_line(aes(group = id ,alpha = .0001), linetype ='twodash', show.legend = F) +
+	geom_smooth(size = 1.5, method = 'loess') +
+	geom_hline(yintercept = 0,colour = "black",lty = 2, size = .7) +
+	ylab("logRSS") + xlab("Distance to Water (m)") +
+	ggtitle("RSS compared to median distance") + theme(plot.title = element_text(hjust = 0.5)) +
+	theme_bw()  + theme(
+		panel.border = element_blank(),
+		panel.grid.major = element_blank(),
+		panel.grid.minor = element_blank(),
+		axis.line = element_line(colour = "black", size = .7)) +
+	theme(plot.title=element_text(size=12,hjust = 0.05),axis.text.x = element_text(size=12), axis.title = element_text(size=15),axis.text.y = element_text(size=12)) +
+	theme(axis.text.x = element_text(margin=margin(10,10,10,10,"pt")),
+				axis.text.y = element_text(margin=margin(10,10,10,10,"pt")))+ theme(axis.ticks.length = unit(-0.25, "cm")) +
+	scale_color_colorblind()  +
+	scale_fill_colorblind()
+
+water.rss
