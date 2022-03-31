@@ -43,6 +43,18 @@ calc_distribution_parameters <- function(steps) {
 	c(ta_distr_params(steps), sl_distr_params(steps))
 }
 
+# Extract land cover ------------------------------------------------------
+extract_lc <- function(DT, lcpath, x, y, lcvalues) {
+	if (is.null(DT)) return()
+	if (nrow(DT) == 0) return()
+	lc <- rast(lcpath)
+	merge(
+		DT[, value := terra::extract(lc, do.call(cbind, .SD)),
+			 .SDcols = c(x, y)],
+		lcvalues,
+		by = 'value',
+		all.x = TRUE)
+}
 # Calculate availability ---------------------------------------
 #TODO ***
 calc_availability <- function(DT, params) {
