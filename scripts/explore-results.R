@@ -92,3 +92,103 @@ mod.b <- glmmTMB(case_ ~ -1 + I(log(sl_)) +
 summary(mod.b)
 
 
+
+#### RSS ####
+### predict method
+p.h2.indiv <- function(ids, DT, mod){
+	lapply(ids, function(i) {
+		unique(
+			DT[
+				,.(h2 = predict(
+					mod,
+					newdata = .SD[, .(
+						sl_ = mean(sl_),
+						forest =0,
+						disturbed =0,
+						distto_water= median(distto_water, na.rm = T),
+						indiv_step_id = NA,
+						id = i
+					)],
+					type = "link",
+					re.form = NULL
+				), id = i)]
+		)
+	})}
+
+
+p.h1.indiv.forest <- function(ids, DT, mod){
+	lapply(ids, function(i) {
+		#unique(
+		DT[
+			,.(h1 = predict(
+				mod,
+				newdata = .SD[, .(
+					sl_ = mean(sl_),
+					forest = seq(from = 0, to = 1, length.out = 100),
+					disturbed =0,
+					distto_water= median(distto_water, na.rm = T),
+					indiv_step_id = NA,
+					id = i
+				)],
+				type = "link",
+				re.form = NULL
+			), id = i)]
+		# )
+	})
+}
+
+p.h1.indiv.dist <- function(ids, DT, mod){
+	lapply(ids, function(i) {
+		#unique(
+		DT[
+			,.(h1 = predict(
+				mod,
+				newdata = .SD[, .(
+					sl_ = mean(sl_),
+					forest = 0,
+					disturbed =0,
+					distto_water= seq(from = 0, to = 1500, length.out = 100),
+					indiv_step_id = NA,
+					id = i
+				)],
+				type = "link",
+				re.form = NULL
+			), id = i)]
+		# )
+	})
+}
+
+ids <- unique(stepID$id)
+
+# h2 for RSS
+h2.indiv <- rbindlist(p.h2.indiv(ids = ids, DT = stepID, mod = mod.b)
+)
+
+# h1 for forest
+h1.indiv.forest <-p.h1.indiv.forest(ids = ids, DT = stepID, mod = mod.b)
+
+# forest
+h1.indiv.forest <- data.table(rbindlist(h1.indiv.forest), x = seq(from = 0, to = 1, length.out = 100))
+#h2.indiv <- rbindlist(h2.indiv)
+
+logRSS.forest <- merge(h1.indiv.forest, h2.indiv, by = c('id'), all.x = T)
+logRSS.forest[,'rss'] <- logRSS.forest$h1 - logRSS.forest$h2
+
+forest.rss <- ggplot(data=logRSS.forest, aes(x, rss)) +
+	geom_line(aes(group = id ,alpha = .0001), linetype ='twodash', show.legend = F) +
+	geom_smooth(size = 1.5, method = 'glm') +
+	geom_hline(yintercept = 0,colour = "black",lty = 2, size = .7) +
+	ylab("logRSS") + xlab("Forest") +
+	ggtitle("RSS compared to 0 forest") + theme(plot.title = element_text(hjust = 0.5)) +
+	theme_bw()  + theme(
+		panel.border = element_blank(),
+		panel.grid.major = element_blank(),
+		panel.grid.minor = element_blank(),
+		axis.line = element_line(colour = "black", size = .7)) +
+	theme(plot.title=element_text(size=12,hjust = 0.05),axis.text.x = element_text(size=12), axis.title = element_text(size=15),axis.text.y = element_text(size=12)) +
+	theme(axis.text.x = element_text(margin=margin(10,10,10,10,"pt")),
+				axis.text.y = element_text(margin=margin(10,10,10,10,"pt")))+ theme(axis.ticks.length = unit(-0.25, "cm")) +
+	scale_color_colorblind()  +
+	scale_fill_colorblind()
+
+forest.rss
