@@ -24,10 +24,11 @@ legend_path <- file.path('input', 'fisher_legend.csv')
 # Path to elevation
 elev_path <- file.path('input', 'elev.tif')
 
-# Population density
-popdens_path <-  file.path('input', 'popdens.tif')
+# Path to population density
+popdens_path <- file.path('input', 'popdens.tif')
 
-
+# Path to water
+water_path <- file.path('input', 'water.gpkg')
 
 # Variables ---------------------------------------------------------------
 # Targets: prepare
