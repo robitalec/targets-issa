@@ -1,7 +1,8 @@
-get_target_raw <- function(name, command) {
+get_target_raw <- function(name, command, pattern = NULL) {
 	tar_target_raw(
 		name = name,
 		command = command,
+		pattern = pattern,
 		packages = targets::tar_option_get("packages"),
 		library = targets::tar_option_get("library"),
 		format = "qs",
