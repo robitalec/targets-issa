@@ -58,7 +58,7 @@ n_random_steps <- 10
 # Targets: data -----------------------------------------------------------
 targets_data <- c(
 	tar_file_read(
-		locs,
+		locs_raw,
 		locs_path,
 		fread(!!.x)
 	),
@@ -90,13 +90,13 @@ targets_data <- c(
 # Targets: prep -----------------------------------------------------------
 targets_prep <- c(
 	tar_target(
-		prep_locs,
-		prepare_locs(locs, id, datetime, tz, x, y, split_by),
+		locs_prep,
+		prepare_locs(locs_raw, id, datetime, tz, x, y, split_by),
 		iteration = 'group'
 	),
 	tar_target(
 		split_key,
-		unique(prep_locs[, .SD, .SDcols = c(split_by, 'tar_group')])
+		unique(locs_prep[, .SD, .SDcols = c(split_by, 'tar_group')])
 	)
 )
 
