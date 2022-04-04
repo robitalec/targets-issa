@@ -107,30 +107,6 @@ targets_prep <- c(
 
 # Targets -----------------------------------------------------------------
 list(
-	# Read input data
-	tar_target(
-		input,
-		fread(fish_path)[, t_ := parse_date(t_, default_tz = tz)]
-	),
-
-	# Remove duplicated and incomplete observations
-	tar_target(
-		mkunique,
-		make_unique_complete(input, id, datetime, x, y)
-	),
-
-	# Set up split -- these are our iteration units
-	tar_target(
-		splits,
-		mkunique[, tar_group := .GRP, by = splitBy],
-		iteration = 'group'
-	),
-
-	tar_target(
-		splitsnames,
-		unique(mkunique, by = splitBy)
-	),
-
 	# Sample distance to water
 	tar_target(
 		water,
