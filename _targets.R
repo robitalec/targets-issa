@@ -52,6 +52,10 @@ tolerance <- minutes(5)
 # Number of random steps
 nrandom <- 10
 
+
+
+
+
 # Targets -----------------------------------------------------------------
 list(
 	# Read input data
@@ -151,4 +155,13 @@ list(
 		make_step_id(mergelc)
 	)
 
+)
+
+
+c(
+	tar_file_read(
+		r,
+		'input/lc.tif',
+		raster(!!.x)
+	)
 )
