@@ -14,8 +14,8 @@ tar_option_set(format = 'qs')
 
 
 # Data --------------------------------------------------------------------
-# Path to fisher data
-fisher_path <- file.path('input', 'fisher.csv')
+# Path to fisher locs data
+locs_path <- file.path('input', 'fisher.csv')
 
 # Path to land cover, legend
 lc_path <- file.path('input', 'lc.tif')
@@ -42,7 +42,7 @@ tz <- 'America/New_York'
 
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
-splitBy <- id
+split_by <- id
 
 
 # Resampling rate
@@ -61,8 +61,8 @@ nrandom <- 10
 # Targets: data -----------------------------------------------------------
 targets_data <- c(
 	tar_file_read(
-		fisher,
-		fisher_path,
+		locs,
+		locs_path,
 		fread(!!.x)
 	),
 	tar_file_read(
@@ -94,7 +94,8 @@ targets_data <- c(
 targets_prep <- c(
 	tar_target(
 		prep_locs,
-		prepare_locs(fisher)
+		prepare_locs(locs, id, datetime, tz, x, y, split_by),
+		iteration = 'group'
 	)
 )
 
