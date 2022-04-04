@@ -34,9 +34,11 @@ id <- 'id'
 datetime <- 't_'
 x <- 'x_'
 y <- 'y_'
-crs <- st_crs(32618)
-spcrs <- CRS(crs$wkt)
-tz <- grep('Montreal', OlsonNames(), value = TRUE)
+epsg <- 32618
+crs <- st_crs(epsg)
+crs_sp <- CRS(crs$wkt)
+tz <- 'America/New_York'
+
 
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
