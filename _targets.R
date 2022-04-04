@@ -56,6 +56,37 @@ nrandom <- 10
 
 
 
+# Targets: data -----------------------------------------------------------
+targets_data <- c(
+	tar_file_read(
+		fisher,
+		fisher_path,
+		fread(!!.x)
+	),
+	tar_file_read(
+		lc,
+		lc_path,
+		raster(!!.x)
+	),
+	tar_file_read(
+		legend,
+		legend_path,
+		fread(!!.x)
+	),
+	tar_file_read(
+		elev,
+		elev_path,
+		raster(!!.x)
+	),
+	tar_file_read(
+		popdens,
+		popdens_path,
+		raster(!!.x)
+	)
+)
+
+
+
 # Targets -----------------------------------------------------------------
 list(
 	# Read input data
