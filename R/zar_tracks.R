@@ -9,6 +9,7 @@ zar_tracks <-
 					 crs,
 					 rate,
 					 tolerance,
+					 n_random_steps,
 					 packages = targets::tar_option_get("packages"),
 					 library = targets::tar_option_get("library"),
 					 format = "qs",
