@@ -9,23 +9,25 @@ lapply(dir('R', '*.R', full.names = TRUE), source)
 
 
 # Options -----------------------------------------------------------------
-tar_option_set(format = 'qs',
-							 error = 'workspace')
+tar_option_set(format = 'qs')
+
 
 
 # Data --------------------------------------------------------------------
-# Fisher
-fish_path <- 'input/fisher.csv'
+# Path to fisher data
+fisher_path <- file.path('input', 'fisher.csv')
 
-# Land cover
-lc <- raster('input/lc.tif')
-legend <- fread('input/fisher_legend.csv')
+# Path to land cover, legend
+lc_path <- file.path('input', 'lc.tif')
+legend_path <- file.path('input', 'fisher_legend.csv')
 
-# Elevation
-elev <- raster('input/elev.tif')
+# Path to elevation
+elev_path <- file.path('input', 'elev.tif')
 
 # Population density
-popdens <-  raster('input/popdens.tif')
+popdens_path <-  file.pat('input', 'popdens.tif')
+
+
 
 # Variables ---------------------------------------------------------------
 id <- 'id'
