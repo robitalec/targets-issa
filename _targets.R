@@ -105,8 +105,27 @@ targets_prep <- c(
 
 # Targets: tracks ---------------------------------------------------------
 targets_tracks <- c(
-	zar_tracks(prep_locs, crs_sp, rate, tolerance, n_random_steps)
+	zar_tracks(locs_prep, crs_sp, rate, tolerance, n_random_steps)
 )
+
+targets_tracks <- c(
+	tar_target(
+		tracks,
+		make_track(locs_prep, x_, y_, t_, all_cols = TRUE, crs = crs_sp),
+		pattern = map(locs_prep)
+	),
+	tar_target(
+		tracks_resampled,
+		resample_tracks(tracks, rate = rate, tolerance = tolerance),
+		pattern = map(tracks)
+	),
+	tar_target(
+		tracks_random,
+		random_steps(tracks_resampled, n = n_random_steps),
+		pattern = map(tracks_resampled)
+	)
+)
+
 
 
 # Targets -----------------------------------------------------------------
