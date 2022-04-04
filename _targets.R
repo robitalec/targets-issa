@@ -30,6 +30,7 @@ popdens_path <-  file.path('input', 'popdens.tif')
 
 
 # Variables ---------------------------------------------------------------
+# Targets: prepare
 id <- 'id'
 datetime <- 't_'
 x <- 'x_'
@@ -38,7 +39,6 @@ epsg <- 32618
 crs <- st_crs(epsg)
 crs_sp <- CRS(crs$wkt)
 tz <- 'America/New_York'
-
 
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
@@ -53,8 +53,6 @@ tolerance <- minutes(5)
 
 # Number of random steps
 nrandom <- 10
-
-
 
 
 
