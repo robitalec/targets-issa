@@ -27,11 +27,18 @@ zar_tracks <-
 
 
 		command_tracks_raw <- substitute(data)
-		command_tracks <- substitute(make_track(tracks, x_, y_, t_, all_cols = TRUE, crs = crs_sp),
-																 env = list(tracks = as.symbol(name_tracks_raw)))
-		# command_resample <- substitute(brms::brmsformula(formula))
-		# command_random <- substitute(priors)
-
+		command_tracks <- substitute(
+			make_track(tracks, x_, y_, t_, all_cols = TRUE, crs = crs),
+			env = list(tracks = as.symbol(name_tracks_raw))
+		)
+		command_resample <- substitute(
+			resample_tracks(tracks, rate = rate, tolerance = tolerance),
+			env = list(tracks = as.symbol(name_tracks))
+		)
+		command_random <- substitute(
+			random_steps(tracks, n = n_random_steps),
+			env = list(tracks = as.symbol(name_resample))
+		)
 
 		target_tracks_raw <- tar_target_raw(
 			name = name_tracks_raw,
