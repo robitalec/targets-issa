@@ -44,7 +44,6 @@ tz <- 'America/New_York'
 #  do we want to split our analysis?
 split_by <- id
 
-
 # Resampling rate
 rate <- minutes(30)
 
@@ -52,14 +51,14 @@ rate <- minutes(30)
 tolerance <- minutes(5)
 
 # Number of random steps
-nrandom <- 10
+n_random_steps <- 10
 
 
 
 # Targets: data -----------------------------------------------------------
 targets_data <- c(
 	tar_file_read(
-		locs,
+		locs_raw,
 		locs_path,
 		fread(!!.x)
 	),
@@ -91,13 +90,35 @@ targets_data <- c(
 # Targets: prep -----------------------------------------------------------
 targets_prep <- c(
 	tar_target(
-		prep_locs,
-		prepare_locs(locs, id, datetime, tz, x, y, split_by),
+		locs_prep,
+		prepare_locs(locs_raw, id, datetime, tz, x, y, split_by),
 		iteration = 'group'
 	),
 	tar_target(
 		split_key,
-		unique(prep_locs[, .SD, .SDcols = c(split_by, 'tar_group')])
+		unique(locs_prep[, .SD, .SDcols = c(split_by, 'tar_group')])
+	)
+)
+
+
+
+
+# Targets: tracks ---------------------------------------------------------
+targets_tracks <- c(
+	tar_target(
+		tracks,
+		make_track(locs_prep, x_, y_, t_, all_cols = TRUE, crs = crs_sp),
+		pattern = map(locs_prep)
+	),
+	tar_target(
+		tracks_resampled,
+		resample_tracks(tracks, rate = rate, tolerance = tolerance),
+		pattern = map(tracks)
+	),
+	tar_target(
+		tracks_random,
+		random_steps(tracks_resampled, n = n_random_steps),
+		pattern = map(tracks_resampled)
 	)
 )
 
@@ -120,18 +141,7 @@ list(
 
 	# Make tracks. Note from here on, when we want to iterate use pattern = map(x)
 	#  where x is the upstream target name
-	tar_target(
-		tracks,
-		make_track(distto, x_, y_, t_, all_cols = TRUE, crs = spcrs),
-		pattern = map(distto)
-	),
 
-	# Resample sampling rate
-	tar_target(
-		resamples,
-		resample_tracks(tracks, rate = rate, tolerance = tolerance),
-		pattern = map(tracks)
-	),
 
 	# Check step distributions
 	#  iteration = 'list' used for returning a list of ggplots,
@@ -145,12 +155,7 @@ list(
 
 
 
-	# Create random steps and extract covariates
-	tar_target(
-		randsteps,
-		make_random_steps(resamples, lc, elev, popdens),
-		pattern = map(resamples)
-	),
+
 
 	# Distribution parameters
 	tar_target(
@@ -170,13 +175,9 @@ list(
 			all.x = TRUE
 		),
 		pattern = map(randsteps)
-	),
-
-	# Make unique step ID per individual
-	tar_target(
-		stepID,
-		make_step_id(mergelc)
 	)
+
+
 
 )
 

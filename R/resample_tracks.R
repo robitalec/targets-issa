@@ -1,4 +1,3 @@
-# Resample with cancel check ---------------------------------------------------------
 resample_tracks <- function(tracks, rate, tolerance) {
 	t <- track_resample(tracks, rate = rate, tolerance = tolerance) %>%
 		filter_min_n_burst()
