@@ -105,7 +105,7 @@ targets_prep <- c(
 
 # Targets: tracks ---------------------------------------------------------
 targets_tracks <- c(
-	zar_tracks(prep_locs)
+	zar_tracks(prep_locs, crs_sp, rate, tolerance, n_random_steps)
 )
 
 
