@@ -26,7 +26,6 @@ zar_tracks <-
 		name_resample <- paste(name, 'resample', sep = '_')
 		name_random <- paste(name, 'random', sep = '_')
 
-
 		command_tracks_raw <- substitute(data)
 		command_tracks <- substitute(
 			make_track(tracks, x_, y_, t_, all_cols = TRUE, crs = crs),
@@ -40,34 +39,8 @@ zar_tracks <-
 		)
 		command_random <- substitute(
 			random_steps(tracks, n = n_random_steps),
-			env = list(tracks = as.symbol(name_resample))
-		)
-
-		target_tracks_raw <- tar_target_raw(
-			name = name_tracks_raw,
-			command = command_tracks_raw,
-			packages = packages,
-			library = library,
-			format = format,
-			error = error,
-			memory = memory,
-			garbage_collection = garbage_collection,
-			deployment = deployment,
-			priority = priority,
-			cue = cue
-		)
-		target_tracks <- tar_target_raw(
-			name = name_tracks,
-			command = command_tracks,
-			packages = packages,
-			library = library,
-			format = format,
-			error = error,
-			memory = memory,
-			garbage_collection = garbage_collection,
-			deployment = deployment,
-			priority = priority,
-			cue = cue
+			env = list(tracks = as.symbol(name_resample),
+								 n_random_steps = n_random_steps)
 		)
 
 		pattern_tracks_raw <- substitute(data)
@@ -91,4 +64,5 @@ zar_tracks <-
 			target_resample,
 			target_random
 		))
-								}
+	}
+
