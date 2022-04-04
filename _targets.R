@@ -82,6 +82,11 @@ targets_data <- c(
 		popdens,
 		popdens_path,
 		raster(!!.x)
+	),
+	tar_file_read(
+		water,
+		water_path,
+		st_read(!!.x)
 	)
 )
 
