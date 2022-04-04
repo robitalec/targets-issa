@@ -6,6 +6,9 @@
 #' @examples
 zar_tracks <-
 	function(data,
+					 crs,
+					 rate,
+					 tolerance,
 					 packages = targets::tar_option_get("packages"),
 					 library = targets::tar_option_get("library"),
 					 format = "qs",
