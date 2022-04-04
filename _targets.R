@@ -44,7 +44,6 @@ tz <- 'America/New_York'
 #  do we want to split our analysis?
 split_by <- id
 
-
 # Resampling rate
 rate <- minutes(30)
 
@@ -52,7 +51,7 @@ rate <- minutes(30)
 tolerance <- minutes(5)
 
 # Number of random steps
-nrandom <- 10
+n_random_steps <- 10
 
 
 
