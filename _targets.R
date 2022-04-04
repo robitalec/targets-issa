@@ -25,7 +25,7 @@ legend_path <- file.path('input', 'fisher_legend.csv')
 elev_path <- file.path('input', 'elev.tif')
 
 # Population density
-popdens_path <-  file.pat('input', 'popdens.tif')
+popdens_path <-  file.path('input', 'popdens.tif')
 
 
 
