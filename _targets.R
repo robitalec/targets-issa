@@ -127,18 +127,7 @@ list(
 
 	# Make tracks. Note from here on, when we want to iterate use pattern = map(x)
 	#  where x is the upstream target name
-	tar_target(
-		tracks,
-		make_track(distto, x_, y_, t_, all_cols = TRUE, crs = spcrs),
-		pattern = map(distto)
-	),
 
-	# Resample sampling rate
-	tar_target(
-		resamples,
-		resample_tracks(tracks, rate = rate, tolerance = tolerance),
-		pattern = map(tracks)
-	),
 
 	# Check step distributions
 	#  iteration = 'list' used for returning a list of ggplots,
@@ -152,12 +141,7 @@ list(
 
 
 
-	# Create random steps and extract covariates
-	tar_target(
-		randsteps,
-		make_random_steps(resamples, lc, elev, popdens),
-		pattern = map(resamples)
-	),
+
 
 	# Distribution parameters
 	tar_target(
@@ -177,13 +161,9 @@ list(
 			all.x = TRUE
 		),
 		pattern = map(randsteps)
-	),
-
-	# Make unique step ID per individual
-	tar_target(
-		stepID,
-		make_step_id(mergelc)
 	)
+
+
 
 )
 
