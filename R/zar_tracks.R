@@ -30,11 +30,13 @@ zar_tracks <-
 		command_tracks_raw <- substitute(data)
 		command_tracks <- substitute(
 			make_track(tracks, x_, y_, t_, all_cols = TRUE, crs = crs),
-			env = list(tracks = as.symbol(name_tracks_raw))
+			env = list(tracks = as.symbol(name_tracks_raw), crs = crs)
 		)
 		command_resample <- substitute(
 			resample_tracks(tracks, rate = rate, tolerance = tolerance),
-			env = list(tracks = as.symbol(name_tracks))
+			env = list(tracks = as.symbol(name_tracks),
+								 rate = rate,
+								 tolerance = tolerance)
 		)
 		command_random <- substitute(
 			random_steps(tracks, n = n_random_steps),
