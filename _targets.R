@@ -14,8 +14,8 @@ tar_option_set(format = 'qs')
 
 
 # Data --------------------------------------------------------------------
-# Path to fisher data
-fisher_path <- file.path('input', 'fisher.csv')
+# Path to fisher locs data
+locs_path <- file.path('input', 'fisher.csv')
 
 # Path to land cover, legend
 lc_path <- file.path('input', 'lc.tif')
@@ -30,17 +30,19 @@ popdens_path <-  file.path('input', 'popdens.tif')
 
 
 # Variables ---------------------------------------------------------------
+# Targets: prepare
 id <- 'id'
 datetime <- 't_'
 x <- 'x_'
 y <- 'y_'
-crs <- st_crs(32618)
-spcrs <- CRS(crs$wkt)
-tz <- grep('Montreal', OlsonNames(), value = TRUE)
+epsg <- 32618
+crs <- st_crs(epsg)
+crs_sp <- CRS(crs$wkt)
+tz <- 'America/New_York'
 
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
-splitBy <- id
+split_by <- id
 
 
 # Resampling rate
@@ -54,13 +56,11 @@ nrandom <- 10
 
 
 
-
-
 # Targets: data -----------------------------------------------------------
 targets_data <- c(
 	tar_file_read(
-		fisher,
-		fisher_path,
+		locs,
+		locs_path,
 		fread(!!.x)
 	),
 	tar_file_read(
@@ -87,32 +87,24 @@ targets_data <- c(
 
 
 
-# Targets -----------------------------------------------------------------
-list(
-	# Read input data
-	tar_target(
-		input,
-		fread(fish_path)[, t_ := parse_date(t_, default_tz = tz)]
-	),
 
-	# Remove duplicated and incomplete observations
+# Targets: prep -----------------------------------------------------------
+targets_prep <- c(
 	tar_target(
-		mkunique,
-		make_unique_complete(input, id, datetime, x, y)
-	),
-
-	# Set up split -- these are our iteration units
-	tar_target(
-		splits,
-		mkunique[, tar_group := .GRP, by = splitBy],
+		prep_locs,
+		prepare_locs(locs, id, datetime, tz, x, y, split_by),
 		iteration = 'group'
 	),
-
 	tar_target(
-		splitsnames,
-		unique(mkunique, by = splitBy)
-	),
+		split_key,
+		unique(prep_locs[, .SD, .SDcols = c(split_by, 'tar_group')])
+	)
+)
 
+
+
+# Targets -----------------------------------------------------------------
+list(
 	# Sample distance to water
 	tar_target(
 		water,
