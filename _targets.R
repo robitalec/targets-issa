@@ -9,23 +9,25 @@ lapply(dir('R', '*.R', full.names = TRUE), source)
 
 
 # Options -----------------------------------------------------------------
-tar_option_set(format = 'qs',
-							 error = 'workspace')
+tar_option_set(format = 'qs')
+
 
 
 # Data --------------------------------------------------------------------
-# Fisher
-fish_path <- 'input/fisher.csv'
+# Path to fisher data
+fisher_path <- file.path('input', 'fisher.csv')
 
-# Land cover
-lc <- raster('input/lc.tif')
-legend <- fread('input/fisher_legend.csv')
+# Path to land cover, legend
+lc_path <- file.path('input', 'lc.tif')
+legend_path <- file.path('input', 'fisher_legend.csv')
 
-# Elevation
-elev <- raster('input/elev.tif')
+# Path to elevation
+elev_path <- file.path('input', 'elev.tif')
 
 # Population density
-popdens <-  raster('input/popdens.tif')
+popdens_path <-  file.path('input', 'popdens.tif')
+
+
 
 # Variables ---------------------------------------------------------------
 id <- 'id'
@@ -49,6 +51,41 @@ tolerance <- minutes(5)
 
 # Number of random steps
 nrandom <- 10
+
+
+
+
+
+# Targets: data -----------------------------------------------------------
+targets_data <- c(
+	tar_file_read(
+		fisher,
+		fisher_path,
+		fread(!!.x)
+	),
+	tar_file_read(
+		lc,
+		lc_path,
+		raster(!!.x)
+	),
+	tar_file_read(
+		legend,
+		legend_path,
+		fread(!!.x)
+	),
+	tar_file_read(
+		elev,
+		elev_path,
+		raster(!!.x)
+	),
+	tar_file_read(
+		popdens,
+		popdens_path,
+		raster(!!.x)
+	)
+)
+
+
 
 # Targets -----------------------------------------------------------------
 list(
@@ -150,3 +187,9 @@ list(
 	)
 
 )
+
+
+
+# Targets: all ------------------------------------------------------------
+# Automatically grab all the "targets_*" lists above
+lapply(grep('targets', ls(), value = TRUE), get)
