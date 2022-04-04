@@ -96,6 +96,10 @@ targets_prep <- c(
 		prep_locs,
 		prepare_locs(locs, id, datetime, tz, x, y, split_by),
 		iteration = 'group'
+	),
+	tar_target(
+		split_key,
+		unique(prep_locs[, .SD, .SDcols = c(split_by, 'tar_group')])
 	)
 )
 
