@@ -103,6 +103,13 @@ targets_prep <- c(
 
 
 
+
+# Targets: tracks ---------------------------------------------------------
+targets_tracks <- c(
+	zar_tracks(prep_locs)
+)
+
+
 # Targets -----------------------------------------------------------------
 list(
 	# Sample distance to water
