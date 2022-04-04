@@ -87,6 +87,17 @@ targets_data <- c(
 
 
 
+
+# Targets: prep -----------------------------------------------------------
+targets_prep <- c(
+	tar_target(
+		prep_locs,
+		prepare_locs(fisher)
+	)
+)
+
+
+
 # Targets -----------------------------------------------------------------
 list(
 	# Read input data
