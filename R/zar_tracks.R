@@ -38,8 +38,8 @@ zar_tracks <-
 								 tolerance = tolerance)
 		)
 		command_random <- substitute(
-			random_steps(tracks, n = n_random_steps),
-			env = list(tracks = as.symbol(name_resample),
+			random_steps(resampled, n = n_random_steps),
+			env = list(resampled = as.symbol(name_resample),
 								 n_random_steps = n_random_steps)
 		)
 
