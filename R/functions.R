@@ -1,6 +1,6 @@
 # === Functions -----------------------------------------------------------
 # Alec L. Robitaille
-
+# Julie W. Turner
 
 
 
@@ -43,6 +43,29 @@ calc_distribution_parameters <- function(steps) {
 	c(ta_distr_params(steps), sl_distr_params(steps))
 }
 
+# Extract land cover ------------------------------------------------------
+extract_lc <- function(DT, lcpath, x, y, lcvalues) {
+	if (is.null(DT)) return()
+	if (nrow(DT) == 0) return()
+	lc <- rast(lcpath)
+	merge(
+		DT[, value := terra::extract(lc, do.call(cbind, .SD)),
+			 .SDcols = c(x, y)],
+		lcvalues,
+		by = 'value',
+		all.x = TRUE)
+}
+# Calculate availability ---------------------------------------
+#TODO ***
+calc_availability <- function(DT, params) {
+	if (is.null(DT)) return()
+	sum.DT <- data.table()
+	lapply(params,function(){
+		if(is.factor(DT[,.(params)]))
+		sum.DT[,paste('availavility', params, sep = '_') := DT[,sum(.SD[,.N])]]
+	})
+
+}
 
 
 #' Evaluate distance-to ---------------------------------------------------
@@ -111,3 +134,10 @@ check_coords <- function(x, coords) {
 	}
 }
 
+# Make unique step ID across individuals -----------------------------------
+make_step_id <- function(DT) {
+	if (is.null(DT)) return()
+	if (nrow(DT) == 0) return()
+
+	setDT(DT)[,indiv_step_id := paste(id, step_id_, sep = '_')]
+}
