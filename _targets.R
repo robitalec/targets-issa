@@ -189,10 +189,7 @@ list(
 )
 
 
-c(
-	tar_file_read(
-		r,
-		'input/lc.tif',
-		raster(!!.x)
-	)
-)
+
+# Targets: all ------------------------------------------------------------
+# Automatically grab all the "targets_*" lists above
+lapply(grep('targets', ls(), value = TRUE), get)
