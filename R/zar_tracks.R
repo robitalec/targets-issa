@@ -70,11 +70,25 @@ zar_tracks <-
 			cue = cue
 		)
 
-		return(list(target_tracks_raw,
-								target_tracks
-								# target_data,
-								# target_sample_tracks,
-								# target_stancode,
-								# target_sample))
+		pattern_tracks_raw <- substitute(data)
+		pattern_tracks <- substitute(x, env = list(x = as.symbol(name_tracks_raw)))
+		pattern_resample <- substitute(x, env = list(x = as.symbol(name_tracks)))
+		pattern_random <- substitute(x, env = list(x = as.symbol(name_resample)))
+
+
+		target_tracks_raw <- get_target_raw(name_tracks_raw, command_tracks_raw,
+																				pattern = pattern_tracks_raw)
+		target_tracks <- get_target_raw(name_tracks, command_tracks,
+																		pattern = pattern_tracks)
+		target_resample <- get_target_raw(name_resample, command_resample,
+																			pattern = pattern_resample)
+		target_random <- get_target_raw(name_random, command_random,
+																		pattern = pattern_random)
+
+		return(list(
+			target_tracks_raw,
+			target_tracks,
+			target_resample,
+			target_random
 		))
 								}
