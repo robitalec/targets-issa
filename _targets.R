@@ -105,10 +105,6 @@ targets_prep <- c(
 
 # Targets: tracks ---------------------------------------------------------
 targets_tracks <- c(
-	zar_tracks(locs_prep, crs_sp, rate, tolerance, n_random_steps)
-)
-
-targets_tracks <- c(
 	tar_target(
 		tracks,
 		make_track(locs_prep, x_, y_, t_, all_cols = TRUE, crs = crs_sp),
