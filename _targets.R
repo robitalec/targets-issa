@@ -192,6 +192,46 @@ targets_model <- c(
 )
 
 
+
+
+# Targets: RSS ------------------------------------------------------------
+targets_rss <- c(
+	tar_target(
+		pred_h1_water,
+		predict_h1_water(model_prep, model_forest)
+	),
+	tar_target(
+		pred_h1_forest,
+		predict_h1_forest(model_prep, model_forest)
+	),
+	tar_target(
+		pred_h2,
+		predict_h2(model_prep, model_forest)
+	),
+	tar_target(
+		rss_forest,
+		calc_rss(pred_h1_forest, 'h1_forest', pred_h2, 'h2')
+	),
+	tar_target(
+		rss_water,
+		calc_rss(pred_h1_water, 'h1_water', pred_h2, 'h2')
+	),
+	tar_target(
+		plot_rss_forest,
+		plot_rss(rss_forest, plot_theme()) +
+			labs(x = 'Forest', y = 'logRSS',
+					 title = 'RSS compared to 0 forest')
+	),
+	tar_target(
+		plot_rss_water,
+		plot_rss(rss_water, plot_theme()) +
+			labs(x = 'Water', y = 'logRSS',
+					 title = 'RSS compared to 0 water')
+	)
+)
+
+
+
 # Targets: all ------------------------------------------------------------
 # Automatically grab and combine all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
