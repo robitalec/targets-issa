@@ -33,7 +33,7 @@ stepID[description == 'wetlands', lc_adj := 'wetlands']
 
 summary(as.factor(stepID$lc_adj))
 
-stepID[, lc := as.factor(lc)]
+stepID[, pt_lc := as.factor(pt_lc)]
 stepID[, lc_adj := as.factor(lc_adj)]
 stepID[, indiv_step_id := as.factor(indiv_step_id)]
 stepID[, id := as.factor(id)]
