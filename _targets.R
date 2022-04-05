@@ -41,6 +41,7 @@ crs <- st_crs(epsg)
 crs_sp <- CRS(crs$wkt)
 tz <- 'America/New_York'
 
+# Targets: tracks
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
 split_by <- id
@@ -125,6 +126,17 @@ targets_tracks <- c(
 		tracks_random,
 		random_steps(tracks_resampled, n = n_random_steps),
 		pattern = map(tracks_resampled)
+	)
+)
+
+
+
+
+# Targets: extract --------------------------------------------------------
+targets_extract <- c(
+	tar_target(
+		tracks_extract,
+		extract_layers(tracks_random, crs, lc, elev, popdens, water)
 	)
 )
 
