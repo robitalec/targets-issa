@@ -180,6 +180,14 @@ targets_model <- c(
 	tar_target(
 		model_forest,
 		model_forest_bin(model_prep)
+	),
+	tar_target(
+		check_model_lc,
+		check_model(model_lc)
+	),
+	tar_target(
+		check_model_forest,
+		check_model(model_forest)
 	)
 )
 
