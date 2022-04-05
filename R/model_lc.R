@@ -3,14 +3,14 @@ model_lc <- function(DT) {
 		case_ ~ -1 + I(log(sl_)) +
 			I(log(sl_)):lc_adj +
 			lc_adj +
-			I(log(distto_water + 1)) +
-			I(log(distto_water + 1)):I(log(sl_)) +
+			I(log(dist_to_water + 1)) +
+			I(log(dist_to_water + 1)):I(log(sl_)) +
 			(1 | indiv_step_id) +
 			(0 + I(log(sl_)) | id) +
 			(0 + I(log(sl_)):lc_adj | id) +
 			(0 + lc_adj | id) +
-			(0 + I(log(distto_water + 1)) | id) +
-			(0 + I(log(distto_water + 1)):I(log(sl_)) | id),
+			(0 + I(log(dist_to_water + 1)) | id) +
+			(0 + I(log(dist_to_water + 1)):I(log(sl_)) | id),
 		data = DT,
 		family = poisson(),
 		map = list(theta = factor(c(NA, 1:23))),
