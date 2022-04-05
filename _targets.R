@@ -176,6 +176,10 @@ targets_model <- c(
 	tar_target(
 		model_lc,
 		model_land_cover(model_prep)
+	),
+	tar_target(
+		model_forest,
+		model_forest_bin(model_prep)
 	)
 )
 
