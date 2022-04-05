@@ -7,8 +7,7 @@ predict_h1_water <- function(DT, model) {
 		forest = 0,
 		disturbed = 0,
 		dist_to_water = seq(from = 0, to = 1500, length.out = 100),
-		indiv_step_id = NA,
-		id = .BY[[1]]
+		indiv_step_id = NA
 	), by = id]
 
 	new_data[, h1_water := predict(model, .SD, type = 'link', re.form = NULL)]
