@@ -37,7 +37,7 @@ stepID[, lc := as.factor(lc)]
 stepID[, lc_adj := as.factor(lc_adj)]
 stepID[, indiv_step_id := as.factor(indiv_step_id)]
 stepID[, id := as.factor(id)]
-stepID[, distto_water := units::drop_units(distto_water)]
+stepID[, dist_to_water := units::drop_units(dist_to_water)]
 summary(stepID$id)
 
 
@@ -45,14 +45,14 @@ summary(stepID$id)
 mod.a <- glmmTMB(case_ ~ -1 + I(log(sl_)) +
 								 	I(log(sl_)):lc_adj +
 								 	lc_adj +
-								 	I(log(distto_water+1)) +
-								 	I(log(distto_water+1)):I(log(sl_)) +
+								 	I(log(dist_to_water+1)) +
+								 	I(log(dist_to_water+1)):I(log(sl_)) +
 								 	(1|indiv_step_id) +
 								 	(0+ I(log(sl_))|id) +
 								 	(0+ I(log(sl_)):lc_adj|id) +
 								 	(0+ lc_adj|id) +
-								 	(0+ I(log(distto_water+1))|id) +
-								 	(0+ I(log(distto_water+1)):I(log(sl_))|id),
+								 	(0+ I(log(dist_to_water+1))|id) +
+								 	(0+ I(log(dist_to_water+1)):I(log(sl_))|id),
 								 data = stepID, family= poisson(),
 								 map= list(theta = factor(c(NA,1:23))),
 								 start = list(theta =c(log(1000), seq(0,0, length.out = 23)))
@@ -64,7 +64,7 @@ summary(mod.a)
 # unique(DT[, n_by_case / .N, by = lc_adj])
 unique(stepID[case_=='FALSE', n_by_case  :=  .N, by = .(lc_adj)][,  n_by_case / .N, by = .(lc_adj)]
 )
-stepID[case_=='FALSE',quantile(distto_water)]
+stepID[case_=='FALSE',quantile(dist_to_water)]
 
 # issue could be too many levels for amount of data
 # so lets simplify to just the lc varibales that I decided were interesting to our pretend question
@@ -77,16 +77,16 @@ mod.b <- glmmTMB(case_ ~ -1 + I(log(sl_)) +
 								 	forest +
 								 	I(log(sl_)):disturbed +
 								 	disturbed +
-								 	I(log(distto_water+1)) +
-								 	I(log(distto_water+1)):I(log(sl_)) +
+								 	I(log(dist_to_water+1)) +
+								 	I(log(dist_to_water+1)):I(log(sl_)) +
 								 	(1|indiv_step_id) +
 								 	(0+ I(log(sl_))|id) +
 								 	(0+ I(log(sl_)):disturbed|id) +
 								 	(0+ I(log(sl_)):forest|id) +
 								 	(0+ forest|id) +
 								 	(0+ disturbed|id) +
-								 	(0+ I(log(distto_water+1))|id) +
-								 	(0+ I(log(distto_water+1)):I(log(sl_))|id),
+								 	(0+ I(log(dist_to_water+1))|id) +
+								 	(0+ I(log(dist_to_water+1)):I(log(sl_))|id),
 								 data = stepID, family= poisson(),
 								 map= list(theta = factor(c(NA,1:7))),
 								 start = list(theta =c(log(1000), seq(0,0, length.out = 7)))
@@ -107,7 +107,7 @@ p.h2.indiv <- function(ids, DT, mod){
 						sl_ = mean(sl_),
 						forest =0,
 						disturbed =0,
-						distto_water= median(distto_water, na.rm = T),
+						dist_to_water= median(dist_to_water, na.rm = T),
 						indiv_step_id = NA,
 						id = i
 					)],
@@ -128,7 +128,7 @@ p.h1.indiv.forest <- function(ids, DT, mod){
 					sl_ = mean(sl_),
 					forest = seq(from = 0, to = 1, length.out = 100),
 					disturbed =0,
-					distto_water= median(distto_water, na.rm = T),
+					dist_to_water= median(dist_to_water, na.rm = T),
 					indiv_step_id = NA,
 					id = i
 				)],
@@ -149,7 +149,7 @@ p.h1.indiv.dist <- function(ids, DT, mod){
 					sl_ = mean(sl_),
 					forest = 0,
 					disturbed =0,
-					distto_water= seq(from = 0, to = 1500, length.out = 100),
+					dist_to_water= seq(from = 0, to = 1500, length.out = 100),
 					indiv_step_id = NA,
 					id = i
 				)],
@@ -196,7 +196,7 @@ forest.rss <- ggplot(data=logRSS.forest, aes(x, rss)) +
 forest.rss
 
 
-### h1 for distto_water ----
+### h1 for dist_to_water ----
 h1.indiv.water <-p.h1.indiv.dist(ids = ids, DT = stepID, mod = mod.b)
 
 # forest
