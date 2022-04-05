@@ -2,6 +2,7 @@
 library(targets)
 library(tarchetypes)
 library(qs)
+library(visNetwork)
 
 library(renv)
 library(conflicted)

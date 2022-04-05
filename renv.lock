@@ -459,6 +459,13 @@
       "Repository": "CRAN",
       "Hash": "526c484233f42522278ab06fb185cb26"
     },
+    "htmlwidgets": {
+      "Package": "htmlwidgets",
+      "Version": "1.5.4",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "76147821cd3fcd8c4b04e1ef0498e7fb"
+    },
     "igraph": {
       "Package": "igraph",
       "Version": "1.2.11",
@@ -914,6 +921,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "55e157e2aa88161bdb0754218470d204"
+    },
+    "visNetwork": {
+      "Package": "visNetwork",
+      "Version": "2.1.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "99b515a03efb8dcc4e4be337f37bf087"
     },
     "withr": {
       "Package": "withr",
