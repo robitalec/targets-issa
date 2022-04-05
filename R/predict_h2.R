@@ -1,0 +1,12 @@
+predict_h2 <- function(DT, model) {
+	new_data <- DT[, .(
+		sl_ = mean(sl_),
+		forest = 0,
+		disturbed = 0,
+		dist_to_water = median(dist_to_water, na.rm = T),
+		indiv_step_id = NA,
+		id = .BY[[1]]
+	), by = id]
+
+	new_data[, h2 := predict(model, .SD, type = 'link', re.form = NULL)]
+}
