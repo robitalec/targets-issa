@@ -24,10 +24,11 @@ legend_path <- file.path('input', 'fisher_legend.csv')
 # Path to elevation
 elev_path <- file.path('input', 'elev.tif')
 
-# Population density
-popdens_path <-  file.path('input', 'popdens.tif')
+# Path to population density
+popdens_path <- file.path('input', 'popdens.tif')
 
-
+# Path to water
+water_path <- file.path('input', 'water.gpkg')
 
 # Variables ---------------------------------------------------------------
 # Targets: prepare
@@ -40,6 +41,7 @@ crs <- st_crs(epsg)
 crs_sp <- CRS(crs$wkt)
 tz <- 'America/New_York'
 
+# Targets: tracks
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
 split_by <- id
@@ -81,6 +83,11 @@ targets_data <- c(
 		popdens,
 		popdens_path,
 		raster(!!.x)
+	),
+	tar_file_read(
+		water,
+		water_path,
+		st_read(!!.x)
 	)
 )
 
@@ -124,25 +131,27 @@ targets_tracks <- c(
 
 
 
+
+# Targets: extract --------------------------------------------------------
+targets_extract <- c(
+	tar_target(
+		tracks_extract,
+		extract_layers(
+			tracks_random,
+			crs,
+			lc,
+			legend,
+			elev,
+			popdens,
+			water
+		)
+	)
+)
+
+
+
 # Targets -----------------------------------------------------------------
 list(
-	# Sample distance to water
-	tar_target(
-		water,
-		polygonize_lc_class(lc, class = 11)
-	),
-
-	tar_target(
-		distto,
-		splits[, distto_water := eval_dist(.SD, water, coords = c(x, y), crs = crs)],
-		pattern = map(splits)
-	),
-
-
-	# Make tracks. Note from here on, when we want to iterate use pattern = map(x)
-	#  where x is the upstream target name
-
-
 	# Check step distributions
 	#  iteration = 'list' used for returning a list of ggplots,
 	#  instead of the usual combination with vctrs::vec_c()
