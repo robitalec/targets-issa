@@ -11,3 +11,5 @@ library(raster)
 library(parsedate)
 
 library(ggplot2)
+
+library(distanceto)
