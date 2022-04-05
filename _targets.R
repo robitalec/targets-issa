@@ -209,13 +209,17 @@ targets_rss <- c(
 		predict_h2(model_prep, model_forest)
 	),
 	tar_target(
-		forest_rss,
-		plot_rss_forest(pred_h1_forest, pred_h2)
+		rss_forest,
+		calc_rss(pred_h1_forest, 'h1_forest', pred_h2, 'h1')
 	),
 	tar_target(
-		water_rss,
-		plot_rss_water(pred_h1_water, pred_h2)
+		plot_rss_forest,
+		plot_rss(rss_forest, plot_theme())
 	)
+	# tar_target(
+	# 	water_rss,
+	# 	plot_rss_water(pred_h1_water, pred_h2)
+	# )
 )
 
 
