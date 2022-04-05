@@ -136,7 +136,15 @@ targets_tracks <- c(
 targets_extract <- c(
 	tar_target(
 		tracks_extract,
-		extract_layers(tracks_random, crs, lc, elev, popdens, water)
+		extract_layers(
+			tracks_random,
+			crs,
+			lc,
+			legend,
+			elev,
+			popdens,
+			water
+		)
 	)
 )
 
