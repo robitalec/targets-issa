@@ -1,5 +1,9 @@
-# Calculate distribution parameters ---------------------------------------
 calc_distribution_parameters <- function(steps) {
-	if (is.null(steps)) return()
-	c(ta_distr_params(steps), sl_distr_params(steps))
+	# if (is.null(steps)) return()
+	data.frame(
+		id = steps$id[[1]],
+		tar_group = steps$tar_group[[1]],
+		ta_distr_params(steps),
+		sl_distr_params(steps)
+	)
 }
