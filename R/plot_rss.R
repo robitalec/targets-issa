@@ -1,4 +1,4 @@
-plot_rss_forest <- function(pred_h1, pred_h2, theme) {
+plot_rss <- function(pred_h1, pred_h2, theme) {
 	# TODO: fix this column subsetting
 	log_rss <- merge(pred_h1[, .(id, h1_forest)], pred_h2[, .(id, h2)],
 									 by = 'id', all.x = TRUE)
