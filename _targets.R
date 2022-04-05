@@ -152,23 +152,6 @@ targets_extract <- c(
 
 # Targets -----------------------------------------------------------------
 list(
-	# Sample distance to water
-	tar_target(
-		water,
-		polygonize_lc_class(lc, class = 11)
-	),
-
-	tar_target(
-		distto,
-		splits[, distto_water := eval_dist(.SD, water, coords = c(x, y), crs = crs)],
-		pattern = map(splits)
-	),
-
-
-	# Make tracks. Note from here on, when we want to iterate use pattern = map(x)
-	#  where x is the upstream target name
-
-
 	# Check step distributions
 	#  iteration = 'list' used for returning a list of ggplots,
 	#  instead of the usual combination with vctrs::vec_c()
