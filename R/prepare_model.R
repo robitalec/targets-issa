@@ -1,3 +1,6 @@
+#' @title Prepare model data
+#' @export
+#' @author Julie W. Turner, Alec L. Robitaille
 prepare_model <- function(DT) {
 	DT[, indiv_step_id := paste(id, step_id_, sep = '_')]
 

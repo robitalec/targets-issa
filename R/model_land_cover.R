@@ -1,3 +1,6 @@
+#' @title Model land cover
+#' @export
+#' @author Julie W. Turner
 model_land_cover <- function(DT) {
 	glmmTMB(
 		case_ ~ -1 + I(log(sl_)) +

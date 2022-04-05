@@ -1,3 +1,6 @@
+#' @title Prepare locs
+#' @export
+#' @author Alec L. Robitaille, Julie W. Turner
 prepare_locs <- function(DT, id, datetime, tz, x, y, split_by) {
 	stopifnot(is.character(datetime))
 

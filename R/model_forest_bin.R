@@ -1,3 +1,6 @@
+#' @title Model forest
+#' @export
+#' @author Julie W. Turner
 model_forest_bin <- function(DT) {
 	glmmTMB(
 		case_ ~ -1 + I(log(sl_)) +

@@ -1,3 +1,6 @@
+#' @title Extract layers
+#' @export
+#' @author Alec L. Robitaille, Julie W. Turner
 extract_layers <- function(DT, crs, lc, legend, elev, popdens, water) {
 	setDT(DT)
 

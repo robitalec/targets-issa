@@ -1,3 +1,5 @@
+#' @title Extract layers at point
+#' @author Alec L. Robitaille
 extract_pt <- function(DT, layer, coords) {
 	object_name <- deparse(substitute(layer))
 

@@ -1,3 +1,6 @@
+#' @title Resample tracks
+#' @export
+#' @author Julie W. Turner, Alec L. Robitaille
 resample_tracks <- function(tracks, rate, tolerance) {
 	t <- track_resample(tracks, rate = rate, tolerance = tolerance) %>%
 		filter_min_n_burst()

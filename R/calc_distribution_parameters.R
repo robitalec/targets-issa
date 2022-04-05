@@ -1,3 +1,6 @@
+#' @title Calculate distribution parameters
+#' @export
+#' @author Alec L. Robitaille, Julie W. Turner
 calc_distribution_parameters <- function(steps) {
 	# if (is.null(steps)) return()
 	data.frame(
