@@ -3,7 +3,8 @@
 #' @author Julie W. Turner
 model_forest_bin <- function(DT) {
 	glmmTMB(
-		case_ ~ -1 + I(log(sl_)) +
+		case_ ~ -1 +
+			I(log(sl_)) +
 			I(log(sl_)):forest +
 			forest +
 			I(log(sl_)):disturbed +

@@ -3,7 +3,8 @@
 #' @author Julie W. Turner
 model_land_cover <- function(DT) {
 	glmmTMB(
-		case_ ~ -1 + I(log(sl_)) +
+		case_ ~ -1 +
+			I(log(sl_)) +
 			I(log(sl_)):lc_adj +
 			lc_adj +
 			I(log(dist_to_water + 1)) +
