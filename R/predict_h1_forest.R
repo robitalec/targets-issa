@@ -11,7 +11,7 @@ predict_h1_forest <- function(DT, model) {
 	), by = id]
 
 	new_data[, h1_forest := predict(model, .SD, type = 'link', re.form = NULL)]
-}
 
-# forest
-# h1.indiv.forest <- data.table(rbindlist(h1.indiv.forest), x = seq(from = 0, to = 1, length.out = 100))
+	# TODO: check
+	new_data[, x := seq(from = 0, to = 1, length.out = 100)]
+}
