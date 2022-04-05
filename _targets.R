@@ -30,6 +30,8 @@ popdens_path <- file.path('input', 'popdens.tif')
 # Path to water
 water_path <- file.path('input', 'water.gpkg')
 
+
+
 # Variables ---------------------------------------------------------------
 # Targets: prepare
 id <- 'id'
@@ -93,7 +95,6 @@ targets_data <- c(
 
 
 
-
 # Targets: prep -----------------------------------------------------------
 targets_prep <- c(
 	tar_target(
@@ -106,7 +107,6 @@ targets_prep <- c(
 		unique(locs_prep[, .SD, .SDcols = c(split_by, 'tar_group')])
 	)
 )
-
 
 
 
@@ -131,7 +131,6 @@ targets_tracks <- c(
 
 
 
-
 # Targets: extract --------------------------------------------------------
 targets_extract <- c(
 	tar_target(
@@ -147,7 +146,6 @@ targets_extract <- c(
 		)
 	)
 )
-
 
 
 
@@ -169,5 +167,5 @@ targets_distributions <- c(
 
 
 # Targets: all ------------------------------------------------------------
-# Automatically grab all the "targets_*" lists above
+# Automatically grab and combine all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
