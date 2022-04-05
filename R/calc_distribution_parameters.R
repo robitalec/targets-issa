@@ -1,4 +1,8 @@
 calc_distribution_parameters <- function(steps) {
 	# if (is.null(steps)) return()
-	data.frame(ta_distr_params(steps), sl_distr_params(steps))
+	data.frame(
+		tar_group = steps$tar_group[[1]],
+		ta_distr_params(steps),
+		sl_distr_params(steps)
+	)
 }
