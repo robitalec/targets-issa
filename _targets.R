@@ -166,6 +166,32 @@ targets_distributions <- c(
 
 
 
+
+# Targets: model ----------------------------------------------------------
+targets_model <- c(
+	tar_target(
+		model_prep,
+		prepare_model(tracks_extract)
+	),
+	tar_target(
+		model_lc,
+		model_land_cover(model_prep)
+	),
+	tar_target(
+		model_forest,
+		model_forest_bin(model_prep)
+	),
+	tar_target(
+		check_model_lc,
+		check_model(model_lc)
+	),
+	tar_target(
+		check_model_forest,
+		check_model(model_forest)
+	)
+)
+
+
 # Targets: all ------------------------------------------------------------
 # Automatically grab and combine all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
