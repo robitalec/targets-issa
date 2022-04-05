@@ -174,8 +174,8 @@ targets_model <- c(
 		prepare_model(tracks_extract)
 	),
 	tar_target(
-		lc_model,
-		model_lc(model_prep)
+		model_lc,
+		model_land_cover(model_prep)
 	)
 )
 

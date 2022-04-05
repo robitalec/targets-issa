@@ -1,4 +1,4 @@
-model_lc <- function(DT) {
+model_land_cover <- function(DT) {
 	glmmTMB(
 		case_ ~ -1 + I(log(sl_)) +
 			I(log(sl_)):lc_adj +
