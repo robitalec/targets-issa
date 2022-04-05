@@ -1,6 +1,7 @@
 # Packages ----------------------------------------------------------------
 library(targets)
 library(tarchetypes)
+library(qs)
 
 library(renv)
 library(conflicted)
@@ -14,6 +15,7 @@ library(raster)
 library(parsedate)
 
 library(ggplot2)
+library(ggthemes)
 
 library(distanceto)
 
