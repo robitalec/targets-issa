@@ -213,15 +213,21 @@ targets_rss <- c(
 		calc_rss(pred_h1_forest, 'h1_forest', pred_h2, 'h2')
 	),
 	tar_target(
+		rss_water,
+		calc_rss(pred_h1_water, 'h1_water', pred_h2, 'h2')
+	),
+	tar_target(
 		plot_rss_forest,
 		plot_rss(rss_forest, plot_theme()) +
 			labs(x = 'Forest', y = 'logRSS',
 					 title = 'RSS compared to 0 forest')
+	),
+	tar_target(
+		plot_rss_water,
+		plot_rss(rss_water, plot_theme()) +
+			labs(x = 'Water', y = 'logRSS',
+					 title = 'RSS compared to 0 water')
 	)
-	# tar_target(
-	# 	water_rss,
-	# 	plot_rss_water(pred_h1_water, pred_h2)
-	# )
 )
 
 
