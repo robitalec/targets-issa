@@ -170,8 +170,12 @@ targets_distributions <- c(
 # Targets: model ----------------------------------------------------------
 targets_model <- c(
 	tar_target(
-		prep_model,
+		model_prep,
 		prepare_model(tracks_extract)
+	),
+	tar_target(
+		lc_model,
+		model_lc(model_prep)
 	)
 )
 
