@@ -10,6 +10,4 @@ prepare_model <- function(DT) {
 	DT[, lc_adj := as.factor(lc_adj)]
 	DT[, indiv_step_id := as.factor(indiv_step_id)]
 	DT[, id := as.factor(id)]
-
-	DT[, dist_to_water := units::drop_units(dist_to_water)]
 }
