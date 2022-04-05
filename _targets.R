@@ -150,44 +150,20 @@ targets_extract <- c(
 
 
 
-# Targets -----------------------------------------------------------------
-list(
-	# Check step distributions
-	#  iteration = 'list' used for returning a list of ggplots,
-	#  instead of the usual combination with vctrs::vec_c()
+
+# Targets: distributions --------------------------------------------------
+targets_distributions <- c(
 	tar_target(
-		distributions,
-		ggplot(resamples, aes(sl_)) + geom_density(alpha = 0.4),
-		pattern = map(resamples),
+		dist_parameters,
+		calc_distribution_parameters(tracks_random),
+		pattern = map(tracks_random)
+	),
+	tar_target(
+		dist_plots,
+		plot_distributions(tracks_resampled),
+		pattern = map(tracks_resampled),
 		iteration = 'list'
-	),
-
-
-
-
-
-	# Distribution parameters
-	tar_target(
-		distparams,
-		calc_distribution_parameters(randsteps),
-		pattern = map(randsteps)
-	),
-
-	# Merge covariate legend
-	tar_target(
-		mergelc,
-		merge(
-			randsteps,
-			legend,
-			by.x = 'lc',
-			by.y = 'Value',
-			all.x = TRUE
-		),
-		pattern = map(randsteps)
 	)
-
-
-
 )
 
 
