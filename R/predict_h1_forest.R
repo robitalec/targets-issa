@@ -12,6 +12,6 @@ predict_h1_forest <- function(DT, model) {
 
 	new_data[, h1_forest := predict(model, .SD, type = 'link', re.form = NULL)]
 
-	# TODO: check
-	new_data[, x := seq(from = 0, to = 1, length.out = 100)]
+	# TODO: check lengths
+	# new_data[, x := seq(from = 0, to = 1, length.out = 100)]
 }
