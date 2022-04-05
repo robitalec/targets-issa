@@ -1,3 +1,6 @@
+#' @title Plot theme
+#' @export
+#' @author Julie W. Turner, Alec L. Robitaille
 plot_theme <- function() {
 	theme_bw()  + theme(
 		panel.border = element_blank(),

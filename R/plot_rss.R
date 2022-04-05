@@ -1,3 +1,6 @@
+#' @title Plot RSS
+#' @export
+#' @author Julie W. Turner, Alec L. Robitaille
 plot_rss <- function(rss, theme) {
 	ggplot(data = rss, aes(x, rss)) +
 		geom_line(aes(group = id , alpha = .0001),
