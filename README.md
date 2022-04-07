@@ -1,8 +1,6 @@
 
 # `targets` workflow for iSSA with `amt`
 
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
-
 ## R setup
 
 ``` r
@@ -26,14 +24,23 @@ library(targets)
 tar_make()
 ```
 
+    ## qs v0.25.3.
     ## 
-    ## Attaching package: ‘amt’
+    ## Attaching package: ‘renv’
     ## 
-    ## The following object is masked from ‘package:stats’:
+    ## The following objects are masked from ‘package:stats’:
     ## 
-    ##     filter
+    ##     embed, update
     ## 
-    ## Linking to GEOS 3.9.1, GDAL 3.2.3, PROJ 8.0.1
+    ## The following objects are masked from ‘package:utils’:
+    ## 
+    ##     history, upgrade
+    ## 
+    ## The following objects are masked from ‘package:base’:
+    ## 
+    ##     load, remove
+    ## 
+    ## Linking to GEOS 3.9.1, GDAL 3.4.0, PROJ 8.2.0; sf_use_s2() is TRUE
     ## Loading required package: sp
     ## 
     ## Attaching package: ‘sp’
@@ -42,50 +49,68 @@ tar_make()
     ## 
     ##     bbox
     ## 
-    ## 
-    ## Attaching package: ‘raster’
-    ## 
-    ## The following object is masked from ‘package:data.table’:
-    ## 
-    ##     shift
-    ## 
-    ## The following object is masked from ‘package:amt’:
-    ## 
-    ##     select
-    ## 
-    ## ✓ skip target input
+    ## ✓ skip target lc_file
+    ## ✓ skip target popdens_file
+    ## ✓ skip target legend_file
+    ## ✓ skip target water_file
+    ## ✓ skip target elev_file
+    ## ✓ skip target locs_raw_file
+    ## ✓ skip target lc
+    ## ✓ skip target popdens
+    ## ✓ skip target legend
     ## ✓ skip target water
-    ## ✓ skip target mkunique
-    ## ✓ skip target splits
-    ## ✓ skip target splitsnames
-    ## ✓ skip branch distto_af8a91a7
-    ## ✓ skip branch distto_cce14954
-    ## ✓ skip branch distto_6f2dc808
-    ## ✓ skip branch distto_f20c9ae9
-    ## ✓ skip branch tracks_23ed6a8f
-    ## ✓ skip branch tracks_51b5c2be
-    ## ✓ skip branch tracks_0253d4f4
-    ## ✓ skip branch tracks_44e98671
-    ## ✓ skip branch resamples_cf979759
-    ## ✓ skip branch resamples_e9f3484e
-    ## ✓ skip branch resamples_9ee98d7e
-    ## ✓ skip branch resamples_42114480
-    ## ✓ skip branch randsteps_debdfa2c
-    ## ✓ skip branch randsteps_6ccf3d63
-    ## ✓ skip branch randsteps_64c94963
-    ## ✓ skip branch randsteps_969ae60f
-    ## ✓ skip branch distributions_debdfa2c
-    ## ✓ skip branch distributions_6ccf3d63
-    ## ✓ skip branch distributions_64c94963
-    ## ✓ skip branch distributions_969ae60f
-    ## ✓ skip branch mergelc_70311396
-    ## ✓ skip branch mergelc_7951511d
-    ## ✓ skip branch mergelc_0e7b9882
-    ## ✓ skip branch mergelc_51685024
-    ## ✓ skip branch distparams_70311396
-    ## ✓ skip branch distparams_7951511d
-    ## ✓ skip branch distparams_0e7b9882
-    ## ✓ skip branch distparams_51685024
+    ## ✓ skip target elev
+    ## ✓ skip target locs_raw
+    ## ✓ skip target locs_prep
+    ## ✓ skip branch tracks_fca4f880
+    ## ✓ skip branch tracks_3266f1ff
+    ## ✓ skip branch tracks_459e55c8
+    ## ✓ skip branch tracks_7bf26949
+    ## ✓ skip branch tracks_07d6c54a
+    ## ✓ skip branch tracks_f495d796
+    ## ✓ skip pattern tracks
+    ## ✓ skip target split_key
+    ## ✓ skip branch tracks_resampled_34106158
+    ## ✓ skip branch tracks_resampled_ff26430e
+    ## ✓ skip branch tracks_resampled_72f0fe87
+    ## ✓ skip branch tracks_resampled_1c380af3
+    ## ✓ skip branch tracks_resampled_00c83064
+    ## ✓ skip branch tracks_resampled_f5a5ec5f
+    ## ✓ skip pattern tracks_resampled
+    ## ✓ skip branch tracks_random_8ba21cb0
+    ## ✓ skip branch tracks_random_cdeaeca0
+    ## ✓ skip branch tracks_random_d793a891
+    ## ✓ skip branch tracks_random_806601f2
+    ## ✓ skip branch tracks_random_1fe6c783
+    ## ✓ skip branch tracks_random_1ee3ea95
+    ## ✓ skip pattern tracks_random
+    ## ✓ skip branch dist_plots_8ba21cb0
+    ## ✓ skip branch dist_plots_cdeaeca0
+    ## ✓ skip branch dist_plots_d793a891
+    ## ✓ skip branch dist_plots_806601f2
+    ## ✓ skip branch dist_plots_1fe6c783
+    ## ✓ skip branch dist_plots_1ee3ea95
+    ## ✓ skip pattern dist_plots
+    ## ✓ skip branch dist_parameters_ec5ab836
+    ## ✓ skip branch dist_parameters_328decce
+    ## ✓ skip branch dist_parameters_ca449fa6
+    ## ✓ skip branch dist_parameters_5b8a1304
+    ## ✓ skip branch dist_parameters_f2ae2168
+    ## ✓ skip branch dist_parameters_bcf8feb4
+    ## ✓ skip pattern dist_parameters
+    ## ✓ skip target tracks_extract
+    ## ✓ skip target model_prep
+    ## ✓ skip target model_lc
+    ## ✓ skip target model_forest
+    ## ✓ skip target check_model_lc
+    ## ✓ skip target pred_h1_forest
+    ## ✓ skip target pred_h2
+    ## ✓ skip target pred_h1_water
+    ## ✓ skip target check_model_forest
+    ## ✓ skip target rss_forest
+    ## ✓ skip target rss_water
+    ## ✓ skip target plot_rss_forest
+    ## ✓ skip target plot_rss_water
     ## ✓ skip pipeline
 
 ## Explore results
