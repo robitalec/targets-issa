@@ -144,6 +144,10 @@ targets_extract <- c(
 			popdens,
 			water
 		)
+	),
+	tar_target(
+		avail_lc,
+		calc_availability(tracks_extract, 'pt_lc', 'proportion', split_by)
 	)
 )
 
