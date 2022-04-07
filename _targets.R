@@ -34,10 +34,10 @@ water_path <- file.path('input', 'water.gpkg')
 
 # Variables ---------------------------------------------------------------
 # Targets: prepare
-id <- 'id'
-datetime <- 't_'
-x <- 'x_'
-y <- 'y_'
+id_col <- 'id'
+datetime_col <- 't_'
+x_col <- 'x_'
+y_col <- 'y_'
 epsg <- 32618
 crs <- st_crs(epsg)
 crs_sp <- CRS(crs$wkt)
@@ -46,7 +46,7 @@ tz <- 'America/New_York'
 # Targets: tracks
 # Split by: within which column or set of columns (eg. c(id, yr))
 #  do we want to split our analysis?
-split_by <- id
+split_by <- id_col
 
 # Resampling rate
 rate <- minutes(30)
@@ -99,7 +99,7 @@ targets_data <- c(
 targets_prep <- c(
 	tar_target(
 		locs_prep,
-		prepare_locs(locs_raw, id, datetime, tz, x, y, split_by),
+		prepare_locs(locs_raw, id_col, datetime_col, tz, x_col, y_col, split_by),
 		iteration = 'group'
 	),
 	tar_target(
