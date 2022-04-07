@@ -14,5 +14,8 @@ prepare_locs <- function(DT, id, datetime, tz, x, y, split_by) {
 	# Make splits
 	na_omit_DT[, tar_group := .GRP, by = c(split_by)]
 
+	# Rename columns
+	setnames(na_omit_DT, c(x, y, datetime), c('x_', 'y_', 't_'))
+
 	return(na_omit_DT)
 }
