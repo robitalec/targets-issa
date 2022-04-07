@@ -6,7 +6,7 @@ predict_h2 <- function(DT, model) {
 		sl_ = mean(sl_),
 		forest = 0,
 		disturbed = 0,
-		dist_to_water = median(dist_to_water, na.rm = T),
+		dist_to_water = median(dist_to_water, na.rm = TRUE),
 		indiv_step_id = NA
 	), by = id]
 
