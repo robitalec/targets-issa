@@ -182,12 +182,12 @@ targets_model <- c(
 		model_forest_bin(model_prep)
 	),
 	tar_target(
-		check_model_lc,
-		check_model(model_lc)
+		model_check_lc,
+		model_check(model_lc)
 	),
 	tar_target(
-		check_model_forest,
-		check_model(model_forest)
+		model_check_forest,
+		model_check(model_forest)
 	)
 )
 
