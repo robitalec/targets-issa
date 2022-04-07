@@ -1,13 +1,24 @@
-calc_availability <- function(DT, col, type, split_by) {
+calc_availability <- function(DT, col, type, split_by, return_summary = TRUE) {
 	DT_avail <- DT[!(case_)]
 
 	if (type == 'proportion') {
 		DT[, n_split_by := .N, c(split_by)]
-		DT[, (paste0('prop_', col)) := .N / n_split_by, c(col, split_by)]
+		out_col <- paste0('prop_', col)
+		DT[, (out_col) := .N / n_split_by, by = c(col, split_by)]
+
+		out_col <- c(out_col, col)
+
 	} else if (type == 'mean') {
-		DT[, (paste0('mean_', col)) := mean(x), c(split_by), env = list(x = col)]
+		out_col <- paste0('mean_', col)
+		DT[, (out_col) := mean(x), by = c(split_by), env = list(x = col)]
+
 	} else if (type == 'median') {
-		DT[, (paste0('median_', col)) := median(x), c(split_by), env = list(x = col)]
+		out_col <- paste0('median_', col)
+		DT[, (out_col) := median(x), by = c(split_by), env = list(x = col)]
+	}
+
+	if (return_summary) {
+		unique(DT[, .SD, .SDcols = c(split_by, out_col)])
 	}
 
 }
