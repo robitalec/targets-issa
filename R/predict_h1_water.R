@@ -14,6 +14,5 @@ predict_h1_water <- function(DT, model) {
 
 	new_data[, h1_water := predict(model, .SD, type = 'link', re.form = NULL)]
 
-	# TODO: check lengths
 	new_data[, x :=  seq(from = 0, to = 1500, length.out = N), by = id]
 }
