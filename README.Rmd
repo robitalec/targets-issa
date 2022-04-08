@@ -9,7 +9,7 @@ output: github_document
 
 ![](README_files/figure-gfm/viz.png)
 
-## R setup
+## Setup
 
 ```{r, eval = FALSE}
 renv::restore()
@@ -24,3 +24,6 @@ tar_make()
 ```
 
 
+## Resources
+
+How-To iSSA: https://issa-guild.github.io/book/, https://github.com/iSSA-guild/book

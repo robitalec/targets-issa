@@ -5,7 +5,7 @@
 
 ![](README_files/figure-gfm/viz.png)
 
-## R setup
+## Setup
 
 ``` r
 renv::restore()
@@ -17,3 +17,8 @@ renv::restore()
 library(targets)
 tar_make()
 ```
+
+## Resources
+
+How-To iSSA: <https://issa-guild.github.io/book/>,
+<https://github.com/iSSA-guild/book>
