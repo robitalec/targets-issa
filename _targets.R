@@ -161,8 +161,14 @@ targets_distributions <- c(
 		pattern = map(tracks_random)
 	),
 	tar_target(
-		dist_plots,
-		plot_distributions(tracks_resampled),
+		dist_sl_plots,
+		plot_distributions(tracks_resampled, 'sl_'),
+		pattern = map(tracks_resampled),
+		iteration = 'list'
+	),
+	tar_target(
+		dist_ta_plots,
+		plot_distributions(tracks_resampled, 'ta_'),
 		pattern = map(tracks_resampled),
 		iteration = 'list'
 	)
