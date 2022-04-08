@@ -3,7 +3,10 @@
 #' @author Alec L. Robitaille, Julie W. Turner
 model_check <- function(model) {
 
-	# count of NAs in std_error
-	# std error 10x larger than estimate
-	# model$sdr$pdHess
+	list(
+		# TODO: std error ~10x larger than estimate
+		n_na_std_error = sum(is.na(model$sdr$par.fixed)),
+		pd_hess = model$sdr$pdHess
+	)
+
 }
