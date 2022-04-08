@@ -4,6 +4,10 @@ output: github_document
 
 # targets-iSSA
 
+```{r, results = "asis", echo = FALSE}
+library(targets)
+cat(c("```mermaid", tar_mermaid(TRUE, reporter = 'silent'), "```"), sep = "\n")
+```
 
 ## R setup
 
