@@ -147,7 +147,7 @@ targets_extract <- c(
 	),
 	tar_target(
 		avail_lc,
-		calc_availability(tracks_extract, 'pt_lc', 'proportion', split_by)
+		calc_availability(tracks_extract, 'lc_description', 'proportion', split_by)
 	)
 )
 
