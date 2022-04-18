@@ -200,8 +200,12 @@ targets_model <- c(
 		model_check(model_forest)
 	),
 	tar_target(
+		indiv_summary,
+		indiv_estimates(model_forest)
+	),
+	tar_target(
 		plot_boxplot,
-		plot_box(model_forest, plot_theme())
+		plot_box(indiv_summary, plot_theme())
 	)
 )
 
