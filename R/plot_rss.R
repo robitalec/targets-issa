@@ -6,7 +6,7 @@ plot_rss <- function(rss, theme) {
 		geom_line(aes(group = id , alpha = .0001),
 							linetype = 'twodash',
 							show.legend = F) +
-		geom_smooth(size = 1.5, method = 'glm') +
+		geom_smooth(size = 1.5) +
 		geom_hline(
 			yintercept = 0,
 			colour = "black",

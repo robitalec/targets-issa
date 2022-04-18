@@ -21,3 +21,7 @@ library(ggthemes)
 library(distanceto)
 
 library(glmmTMB)
+require(broom.mixed)
+require(tidyr)
+require(dplyr)
+require(tibble)

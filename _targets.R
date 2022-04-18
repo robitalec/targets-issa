@@ -201,8 +201,33 @@ targets_model <- c(
 	)
 )
 
+# Targets: output and effects ------------------------------------------------------------
+targets_effects <- c(
+	tar_target(
+		indiv_summary,
+		indiv_estimates(model_forest)
+	),
+	tar_target(
+		plot_boxplot,
+		plot_box_horiz(indiv_summary, plot_theme())
+	)
+)
 
-
+# Targets: speed ------------------------------------------------------------
+targets_speed <- c(
+	tar_target(
+		prep_speed,
+		prep_speed(DT  = model_prep, summary = indiv_summary, params = dist_parameters)),
+	tar_target(
+		calc_speed_disturbed,
+		calc_speed(prep_speed, 'disturbed', seq = 0:1)
+	),
+	tar_target(
+		plot_speed_disturbed,
+		plot_box(calc_speed_disturbed, plot_theme()) +
+			labs(x = 'Not disturbed vs disturbed', y = 'Speed (m/30mins)')
+	)
+)
 
 # Targets: RSS ------------------------------------------------------------
 targets_rss <- c(
@@ -236,7 +261,7 @@ targets_rss <- c(
 		plot_rss_water,
 		plot_rss(rss_water, plot_theme()) +
 			labs(x = 'Water', y = 'logRSS',
-					 title = 'RSS compared to 0 water')
+					 title = 'RSS compared to mean distance from water')
 	)
 )
 
