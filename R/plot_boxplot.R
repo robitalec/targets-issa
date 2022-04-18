@@ -2,11 +2,8 @@
 #' @export
 #' @author Julie W. Turner
 plot_box <- function(model, theme) {
-	temp <- setDT(coef(model)$cond$id %>% rownames_to_column("id") %>%
-															pivot_longer(-id, names_to = "term", values_to = "estimate") %>%
-															mutate(method = "ME"))
 
-	ggplot(data = temp[term !='(Intercept)'],
+	ggplot(data = model[term !='(Intercept)'],
 				 aes(term, estimate)) +
 		geom_boxplot() +
 		geom_jitter() +
