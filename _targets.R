@@ -198,6 +198,10 @@ targets_model <- c(
 	tar_target(
 		model_check_forest,
 		model_check(model_forest)
+	),
+	tar_target(
+		plot_boxplot,
+		plot_box(model_forest, plot_theme())
 	)
 )
 
@@ -236,7 +240,7 @@ targets_rss <- c(
 		plot_rss_water,
 		plot_rss(rss_water, plot_theme()) +
 			labs(x = 'Water', y = 'logRSS',
-					 title = 'RSS compared to 0 water')
+					 title = 'RSS compared to mean distance from water')
 	)
 )
 
