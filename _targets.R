@@ -217,7 +217,7 @@ targets_effects <- c(
 targets_speed <- c(
 	tar_target(
 		prep_speed,
-		prep_speed(model_prep, indiv_summary, dist_parameters)),
+		prep_speed(DT  = model_prep, summary = indiv_summary, params = dist_parameters)),
 	tar_target(
 		calc_speed_disturbed,
 		calc_speed(prep_speed, 'disturbed', seq = 0:1)
