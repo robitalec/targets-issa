@@ -1716,20 +1716,8 @@
     },
     "sp": {
       "Package": "sp",
-      "Version": "2.1-2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "grDevices",
-        "graphics",
-        "grid",
-        "lattice",
-        "methods",
-        "stats",
-        "utils"
-      ],
-      "Hash": "40a9887191d33b2521a1d741f8c8aea2"
+      "Version": "2.1-3",
+      "Source": "Repository"
     },
     "statmod": {
       "Package": "statmod",
