@@ -4,7 +4,7 @@
 prepare_locs <- function(DT, id, datetime, tz, x, y, split_by) {
 	stopifnot(is.character(datetime))
 
-	DT[, datetime := parse_date(datetime_char, default_tz = tz),
+	DT[, (datetime) := parse_date(datetime_char, default_tz = tz),
 		 env = list(datetime_char = datetime)]
 
 	# Make unique and complete
