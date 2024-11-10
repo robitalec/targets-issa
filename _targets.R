@@ -217,6 +217,22 @@ targets_model <- c(
 	)
 )
 
+
+# Targets: fixed effects -------------------------------------------------------
+targets_fixed <- c(
+	tar_target(
+		fixef_summary,
+		data.table(estimate = fixef(model_forest)$cond,
+							 term = names(fixef(model_forest)$cond),
+							 n_random = seq_n_random),
+		pattern = map(model_forest, seq_n_random)
+	),
+	tar_target(
+		plot_box_fixef,
+		plot_box(fixef_summary, plot_theme())
+	)
+)
+
 # Targets: output and effects ------------------------------------------------------------
 targets_effects <- c(
 	tar_target(
