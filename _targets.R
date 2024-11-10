@@ -124,12 +124,13 @@ targets_tracks <- c(
 	),
 	tar_target(
 		seq_n_random,
-		c(5, 100, 250)
+		{x <- rep(c(5, 100, 250), each = 5); x; setNames(x, seq_along(x))}
 	),
 	tar_target(
 		tracks_random,
 		{r <- random_steps(tracks_resampled, n = seq_n_random)
 		 r$n_random <- seq_n_random
+		 r$id_random <- names(seq_n_random)
 		 r},
 		pattern = cross(tracks_resampled, seq_n_random)
 	)
@@ -187,7 +188,9 @@ targets_distributions <- c(
 targets_model <- c(
 	tar_target(
 		model_prep,
-		prepare_model(tracks_extract[tracks_extract$n_random == seq_n_random,]),
+		prepare_model(tracks_extract[
+			tracks_extract$n_random == seq_n_random &
+				tracks_extract$id_random == names(seq_n_random),]),
 		pattern = map(seq_n_random)
 	),
 	tar_target(
