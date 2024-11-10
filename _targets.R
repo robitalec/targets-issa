@@ -187,23 +187,28 @@ targets_distributions <- c(
 targets_model <- c(
 	tar_target(
 		model_prep,
-		prepare_model(tracks_extract)
+		prepare_model(tracks_extract[tracks_extract$n_random == seq_n_random,]),
+		pattern = map(seq_n_random)
 	),
 	tar_target(
 		model_lc,
-		model_land_cover(model_prep)
+		model_land_cover(model_prep),
+		pattern = map(model_prep)
 	),
 	tar_target(
 		model_forest,
-		model_forest_bin(model_prep)
+		model_forest_bin(model_prep),
+		pattern = map(model_prep)
 	),
 	tar_target(
 		model_check_lc,
-		model_check(model_lc)
+		model_check(model_lc),
+		pattern = map(model_lc)
 	),
 	tar_target(
 		model_check_forest,
-		model_check(model_forest)
+		model_check(model_forest),
+		pattern = map(model_forest)
 	)
 )
 
