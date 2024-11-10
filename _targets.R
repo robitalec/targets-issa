@@ -196,12 +196,14 @@ targets_model <- c(
 	tar_target(
 		model_lc,
 		model_land_cover(model_prep),
-		pattern = map(model_prep)
+		pattern = map(model_prep),
+		iteration = 'list'
 	),
 	tar_target(
 		model_forest,
 		model_forest_bin(model_prep),
-		pattern = map(model_prep)
+		pattern = map(model_prep),
+		iteration = 'list'
 	),
 	tar_target(
 		model_check_lc,
