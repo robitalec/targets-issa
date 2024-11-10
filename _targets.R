@@ -128,8 +128,10 @@ targets_tracks <- c(
 	),
 	tar_target(
 		tracks_random,
-		random_steps(tracks_resampled, n = n_random_steps),
-		pattern = map(tracks_resampled)
+		{r <- random_steps(tracks_resampled, n = seq_n_random)
+		 r$n_random <- seq_n_random
+		 r},
+		pattern = cross(tracks_resampled, seq_n_random)
 	)
 )
 
