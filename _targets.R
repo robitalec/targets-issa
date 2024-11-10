@@ -123,6 +123,10 @@ targets_tracks <- c(
 		pattern = map(tracks)
 	),
 	tar_target(
+		seq_n_random,
+		c(5, 100, 250)
+	),
+	tar_target(
 		tracks_random,
 		random_steps(tracks_resampled, n = n_random_steps),
 		pattern = map(tracks_resampled)
