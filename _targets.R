@@ -123,9 +123,16 @@ targets_tracks <- c(
 		pattern = map(tracks)
 	),
 	tar_target(
+		seq_n_random,
+		{x <- rep(c(5, 100, 250), each = 5); x; setNames(x, seq_along(x))}
+	),
+	tar_target(
 		tracks_random,
-		random_steps(tracks_resampled, n = n_random_steps),
-		pattern = map(tracks_resampled)
+		{r <- random_steps(tracks_resampled, n = seq_n_random)
+		 r$n_random <- seq_n_random
+		 r$id_random <- names(seq_n_random)
+		 r},
+		pattern = cross(tracks_resampled, seq_n_random)
 	)
 )
 
@@ -181,23 +188,48 @@ targets_distributions <- c(
 targets_model <- c(
 	tar_target(
 		model_prep,
-		prepare_model(tracks_extract)
+		prepare_model(tracks_extract[
+			tracks_extract$n_random == seq_n_random &
+				tracks_extract$id_random == names(seq_n_random),]),
+		pattern = map(seq_n_random)
 	),
 	tar_target(
 		model_lc,
-		model_land_cover(model_prep)
+		model_land_cover(model_prep),
+		pattern = map(model_prep),
+		iteration = 'list'
 	),
 	tar_target(
 		model_forest,
-		model_forest_bin(model_prep)
+		model_forest_bin(model_prep),
+		pattern = map(model_prep),
+		iteration = 'list'
 	),
 	tar_target(
 		model_check_lc,
-		model_check(model_lc)
+		model_check(model_lc),
+		pattern = map(model_lc)
 	),
 	tar_target(
 		model_check_forest,
-		model_check(model_forest)
+		model_check(model_forest),
+		pattern = map(model_forest)
+	)
+)
+
+
+# Targets: fixed effects -------------------------------------------------------
+targets_fixed <- c(
+	tar_target(
+		fixef_summary,
+		data.table(estimate = fixef(model_forest)$cond,
+							 term = names(fixef(model_forest)$cond),
+							 n_random = seq_n_random),
+		pattern = map(model_forest, seq_n_random)
+	),
+	tar_target(
+		plot_box_fixef,
+		plot_box(fixef_summary, plot_theme())
 	)
 )
 
