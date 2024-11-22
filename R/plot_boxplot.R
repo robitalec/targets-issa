@@ -4,11 +4,10 @@
 plot_box<- function(DT, theme) {
 
 	ggplot(data = DT,
-				 aes(n_random, estimate, group = n_random)) +
-		geom_boxplot() +
-		geom_jitter() +
+				 aes(as.factor(x), spd)) +
+		geom_boxplot(aes(color = as.factor(x))) +
+		geom_jitter(aes(color = as.factor(x))) +
 		scale_color_colorblind()  +
 		scale_fill_colorblind() +
-		plot_theme() +
-		facet_wrap(~term)
+		plot_theme()
 }
