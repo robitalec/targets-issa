@@ -6,7 +6,9 @@ prepare_locs <- function(DT, id, datetime, tz, x, y, split_by) {
 
 	DT[, (datetime) := parse_date(datetime_char, default_tz = tz),
 		 env = list(datetime_char = datetime)]
-
+	# changing IDate format to a different variable to avoid iteration = "group" error later on
+	DT[, idate := as.Date(idate)]
+	
 	# Make unique and complete
 	unique_DT <- unique(DT, by = c(id, datetime))
 	na_omit_DT <- na.omit(unique_DT, cols = c(x, y, datetime))
