@@ -1491,18 +1491,10 @@
       ],
       "Hash": "1cba04a4e9414bdefc9dcaa99649a8dc"
     },
-    "qs": {
-      "Package": "qs",
-      "Version": "0.25.7",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Requirements": [
-        "R",
-        "RApiSerialize",
-        "Rcpp",
-        "stringfish"
-      ],
-      "Hash": "f5adb766329cc757980d943ce472e831"
+    "qs2": {
+      "Package": "qs2",
+      "Version": "0.2.2",
+      "Source": "Repository"
     },
     "rappdirs": {
       "Package": "rappdirs",
